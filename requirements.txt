@@ -106,6 +106,7 @@ groq==0.11.0
 grpcio==1.62.1
 grpcio-status==1.62.1
 gspread==6.1.0
+gunicorn==23.0.0
 h11==0.14.0
 h2==3.2.0
 h5py==3.12.1
@@ -325,6 +326,7 @@ update-checker==0.18.0
 uritemplate==4.1.1
 urllib3==1.26.16
 urllib3-secure-extra==0.1.0
+uvicorn==0.34.0
 virtualenv==20.25.0
 w3lib==2.1.2
 wasabi==1.1.2
