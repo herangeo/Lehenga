@@ -285,10 +285,14 @@ def wishlist(request):
     return render(request, 'wishlist_page.html', {'wishlist': wishlist})
 
 @custom_login_required
-def remove_from_wishlist(request,product_id):
+def remove_from_wishlist(request, product_id):
     product = get_object_or_404(Product, id=product_id)
-    wishlist = Wishlist.objects.get()  
-    wishlist.products.remove(product)
+
+    wishlist = Wishlist.objects.filter(user=request.user).first()
+
+    if wishlist:
+        wishlist.products.remove(product)
+    
     return redirect('wishlist')
 
 
