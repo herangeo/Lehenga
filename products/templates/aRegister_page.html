@@ -1,0 +1,220 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', Arial, sans-serif;
+            background-color: #f0f0f0;
+            height: 100%;
+            min-height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 100%;
+            max-width: 1000px;
+            display: flex;
+            margin: 20px;
+        }
+
+        .image-section {
+            flex: 1;
+            position: relative;
+            min-height: 400px;
+        }
+
+        .image-section img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .image-text {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: white;
+            font-size: clamp(18px, 4vw, 24px);
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .form-section {
+            flex: 1;
+            padding: clamp(20px, 5vw, 40px);
+            min-width: 280px;
+        }
+
+        h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-weight: 600;
+            font-size: clamp(20px, 5vw, 24px);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: clamp(12px, 3vw, 14px);
+            font-weight: 300;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: clamp(14px, 3vw, 16px);
+        }
+
+        .name-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .name-group .form-group {
+            flex: 1;
+        }
+
+        button {
+            width: 100%;
+            padding: clamp(8px, 2vw, 10px);
+            background-color: #000;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: clamp(14px, 3vw, 16px);
+            font-weight: 400;
+            font-family: 'Poppins', Arial, sans-serif;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #333;
+        }
+
+        /* Tablet Breakpoint */
+        @media (max-width: 900px) {
+            .card {
+                max-width: 600px;
+                flex-direction: column;
+            }
+
+            .image-section {
+                min-height: 300px;
+            }
+        }
+
+        /* Mobile Breakpoint */
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+
+            .card {
+                margin: 10px;
+            }
+
+            .image-section {
+                min-height: 200px;
+            }
+
+            .name-group {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .form-section {
+                padding: 20px;
+            }
+        }
+
+        /* Small Mobile Breakpoint */
+        @media (max-width: 320px) {
+            .card {
+                margin: 5px;
+            }
+
+            .form-section {
+                padding: 15px;
+            }
+
+            .image-section {
+                min-height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="image-section">
+                <img src="{% static 'images/IMG_4126.JPG' %}" alt="Collection 2018">
+                <div class="image-text">#Collection 2018</div>
+            </div>
+            <div class="form-section">
+                <h2>REGISTRATION FORM</h2>
+                <form method="POST" action="{% url 'signup_page' %}">
+                    {% csrf_token %}
+                    <div class="name-group">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" name="lastName" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="number">Phone Number</label>
+                        <input type="tel" id="number" name="number" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input type="password" id="confirm_password" name="confirm_password" required>
+                    </div>
+                    <button type="submit">Register →</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

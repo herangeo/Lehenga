@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Required</title>
+</head>
+<body>
+    <div class="alert alert-warning">
+        {{ message }}
+    </div>
+    <p>Please <a href="{% url 'login' %}">login</a> to continue.</p>
+</body>
+</html>

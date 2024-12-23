@@ -1,0 +1,208 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', Arial, sans-serif;
+            background-color: #f0f0f0;
+            height: 100%;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            padding: 1rem; /* Add padding for smaller screens */
+
+        }
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 800px;
+            max-width: 100%; /* Responsive width */
+            flex-direction: row; /* Default to row */
+            display: flex;
+        }
+        .image-section {
+            flex: 1;
+            position: relative;
+        }
+        .image-section img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .image-text {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .form-section {
+            flex: 1;
+            padding: 40px;
+        }
+        h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            font-weight: 300;
+        }
+        input {
+            width: 100%;
+            padding: 10px; /* Increased padding for better touch targets */
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px; /* Ensure input text is legible */
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #000;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 400;
+            font-family: 'Poppins', Arial, sans-serif;
+        }
+        button:hover {
+            background-color: #333;
+        }
+        .login-option {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        .login-option a {
+            color: #000;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        #emailLogin {
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .card {
+                flex-direction: column;
+                width: 90%;
+            }
+            .image-section {
+                height: 300px;
+            }
+        }
+        @media (max-width: 768px) {
+            .card {
+                flex-direction: row; /* Stack image and form vertically */
+                width: 100%;
+                height: auto; /* Full width on small screens */
+            }
+            .image-section {
+                height: 400px; /* Fixed height for image section */
+            }
+            .form-section {
+                padding: 20px; /* Reduce padding for smaller screens */
+            }
+            h2 {
+                font-size: 20px; /* Smaller heading font size */
+            }
+            .image-text {
+                font-size: 18px; /* Smaller image text */
+            }
+        }
+        @media (max-width: 480px) {
+            h2 {
+                font-size: 18px; /* Further reduce heading font size */
+            }
+            .form-group label {
+                font-size: 12px; /* Smaller label font size */
+            }
+            input, button {
+                padding: 8px; /* Reduce padding for smaller devices */
+                font-size: 14px; /* Smaller font for inputs and buttons */
+            }
+            .login-option {
+                font-size: 12px; /* Smaller login option font size */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="image-section">
+                <img src="{% static 'images/IMG_4126.JPG' %}" alt="Collection 2018">
+                <div class="image-text">#Collection 2018</div>
+            </div>
+            <div class="form-section">
+                <h2>LOGIN</h2>
+                <form id="phoneLogin">
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+
+                    <button type="submit">Login →</button>
+                </form>
+                <form id="emailLogin" method="POST" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="emailPassword">Password</label>
+                        <input type="password" id="emailPassword" name="emailPassword" required>
+                    </div>
+                    <button type="submit">Login →</button>
+                </form>                 
+                <div class="login-option">
+                    <a id="toggleLogin">Login with Email Instead</a>
+                </div>
+                <div class="login-option">
+                    <p>Don't have an account? <a href="{% url 'register_page' %}">Sign up here</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const phoneLogin = document.getElementById('phoneLogin');
+        const emailLogin = document.getElementById('emailLogin');
+        const toggleLogin = document.getElementById('toggleLogin');
+
+        toggleLogin.addEventListener('click', function() {
+            if (phoneLogin.style.display !== 'none') {
+                phoneLogin.style.display = 'none';
+                emailLogin.style.display = 'block';
+                toggleLogin.textContent = 'Login with Phone Instead';
+            } else {
+                phoneLogin.style.display = 'block';
+                emailLogin.style.display = 'none';
+                toggleLogin.textContent = 'Login with Email Instead';
+            }
+        });
+    </script>
+</body>
+</html>

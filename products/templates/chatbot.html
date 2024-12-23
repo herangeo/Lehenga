@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .chat-container {
+            width: 400px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .chat-header {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .chat-box {
+            height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        .chat-box .message {
+            margin: 5px 0;
+        }
+        .chat-box .message.user {
+            text-align: right;
+            color: #007bff;
+        }
+        .chat-box .message.bot {
+            text-align: left;
+            color: #000;
+        }
+        .input-container {
+            display: flex;
+        }
+        .input-container input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .input-container button {
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            margin-left: 5px;
+            cursor: pointer;
+        }
+        .input-container button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">Chatbot</div>
+        <div id="chat-box" class="chat-box"></div>
+        <form id="chat-form" class="input-container" method="post">
+            {% csrf_token %}
+            <input type="text" id="user-input" placeholder="Type your message..." required>
+            <button type="submit">Send</button>
+        </form>
+        
+    </div>
+    <script>
+        const chatForm = document.getElementById('chat-form');
+        const userInput = document.getElementById('user-input');
+        const chatBox = document.getElementById('chat-box');
+    
+        chatForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const message = userInput.value;
+            if (message.trim()) {
+                // Display user message
+                const userMessage = document.createElement("div");
+                userMessage.className = "message user";
+                userMessage.textContent = message;
+                chatBox.appendChild(userMessage);
+    
+                // Clear input
+                userInput.value = "";
+    
+                // Scroll to bottom
+                chatBox.scrollTop = chatBox.scrollHeight;
+    
+                // Get CSRF token from the CSRF cookie
+                const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    
+                // Send message to server
+                fetch("", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                        "X-CSRFToken": csrftoken,
+                    },
+                    body: new URLSearchParams({ message: message }),
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        // Display bot response
+                        const botMessage = document.createElement("div");
+                        botMessage.className = "message bot";
+                        botMessage.textContent = data.response;
+                        chatBox.appendChild(botMessage);
+    
+                        // Scroll to bottom
+                        chatBox.scrollTop = chatBox.scrollHeight;
+                    })
+                    .catch((error) => {
+                        console.error("Error:", error);
+                    });
+            }
+        });
+    </script>
+</body>
+</html>

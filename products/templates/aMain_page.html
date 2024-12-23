@@ -1,0 +1,1124 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <title> Lehengas Hub</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Playfair+Display:wght@700&display=swap');
+
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
+.container-fluid{
+    overflow:hidden; 
+    margin-top: 250px ;
+    background:rgb(66, 31, 33) ;
+    color: #627482  !important;
+    margin-bottom: 0 ;
+    padding-bottom:0  ;
+}
+
+small{
+    font-size: calc(12px + (15 - 12) * ((100vw - 360px) / (1600 - 360))) !important; 
+}
+
+.bold-text{
+    color: #989c9e !important;
+}
+
+
+.mt-55{
+    margin-top: calc(50px + (60 - 50) * ((100vw - 360px) / (1600 - 360))) !important; 
+}
+
+
+ 
+.social{
+    font-size: 21px !important; 
+}
+
+.rights{
+    font-size: calc(10px + (12 - 10) * ((100vw - 360px) / (1600 - 360))) !important; 
+}
+
+
+header {
+    background: transparent;
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    font-family: 'Poppins', sans-serif;
+    transition: background-color 0.3s ease;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.header-scrolled {
+    background-color: rgb(114, 52, 56);
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.hero {
+    position: relative;
+    height: 100vh;
+    background: #000;
+}
+
+.slider {
+    height: 100%;
+    overflow: hidden;
+}
+
+.slide {
+    position: relative;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.7;
+}
+
+.content {
+    position: absolute;
+    color: white;
+    text-align: left;
+    left: 10%;
+    max-width: 40%;
+}
+
+.content h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    font-family: 'Playfair Display', serif;
+}
+
+.content p {
+    font-size: 1rem;
+    margin-bottom: 30px;
+    line-height: 1.6;
+    font-family: 'Poppins', sans-serif;
+}
+
+.btn {
+    background: rgb(159, 97, 78);
+    color: white;
+    padding: 15px 30px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+}
+
+.slider-navigation {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.prev, .next {
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+}
+
+.hero-section {
+    text-align: center;
+    padding: 90px 50px;
+    background-color: #ffffff;
+    height: 350px;
+}
+
+.hero-section h1 {
+    font-size: 2.7em;
+    margin-bottom: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.hero-section p {
+    font-size: 1.2em;
+    color: #6d6969;
+    max-width: 800px;
+    margin: 0 auto;
+    font-family: 'Poppins', sans-serif;
+}
+
+.services {
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    width: fit-content;
+    height: 450px;
+    padding: 0;
+}
+
+.service-card {
+    background-color: rgb(114, 52, 56);
+    color: #ffffff;
+    padding: 100px 40px;
+    text-align: left;
+    flex: 1;
+    margin: 0; 
+    border: solid 2px rgb(159, 138, 138);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}  
+
+.service-card:hover {
+    background-color: rgb(139, 72, 74);
+    transform: scale(1.01);
+}
+
+.service-card h2 {
+    font-size: 2.7em;
+    margin-bottom: 20px;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
+
+.service-card p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    color: #f1f1f1;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+}
+
+.service-card a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1em;
+    transition: color 0.3s;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
+
+.service-card a:hover {
+    color: #ffd600;
+}
+
+.hero-section2 {
+    position: relative;
+    height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+}
+
+.hero-section2::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("{% static 'images/HP 518.JPEG' %}") no-repeat center center/cover;
+    filter: blur(8px);
+    z-index: -1;
+    transform: scale(1.1);
+}
+
+.hero-section2 .content {
+    position: relative;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.hero-section2 h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.hero-section2 p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.hero-section2 .btn {
+    padding: 15px 30px;
+    background-color: rgb(159, 97, 78);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 10px;
+    text-decoration: none;
+    font-size: 1rem;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.showcase-section {
+    padding: 50px;
+    text-align: center;
+    background-color: #fff;
+}
+
+.showcase-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.showcase-section p {
+    font-size: 1.2rem;
+    color: #6d6969;
+    margin-bottom: 30px;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+}
+
+.Lehenga-gallery {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.Lehenga-item {
+    position: relative;
+    width: 23%;
+    margin-bottom: 30px;
+    overflow: hidden;
+}
+
+.Lehenga-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.Lehenga-gallery img:hover {
+    transform: scale(1.05);
+}
+
+.search-bar {
+    flex-grow: 1;
+    margin-right: 20px;
+    position: relative;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 12px 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.search-bar input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.search-bar input:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.search-bar::after {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 18px;
+}
+
+.see-more-btn {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100%);
+    padding: 10px 20px;
+    background-color: rgba(255, 255, 255, 0.7);
+    color: black;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+}
+
+.Lehenga-item:hover .see-more-btn {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+input[type="text"]::placeholder {
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.cart-icon {
+    position: relative;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: rgb(159, 97, 78);
+    color: white;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 50%;
+    font-family: 'Poppins', sans-serif;
+}
+
+.header-icons {
+    display: flex;
+    gap: 25px;
+    margin-right: 20px;
+}
+
+.header-icons a {
+    color: white;
+    font-size: 18px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+.header-icons a:hover {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.search-section {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    margin-right: 5px;
+    gap: 20px;
+}
+.main-nav {
+    padding: 1rem;
+}
+
+.nav-list {
+    list-style: none;
+    display: flex;
+    gap: 1px;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-list li a {
+    text-decoration: none;
+    color:white;
+}
+
+.profile-dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background: white;
+    min-width: 250px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-radius: 4px;
+    padding: 1rem;
+    z-index: 1000;
+}
+
+.profile-dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-header {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 1rem;
+}
+
+.dropdown-header h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+}
+
+.dropdown-header p {
+    margin: 0 0 1rem 0;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 0.5rem;
+    background: rgb(159, 97, 78);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+
+    
+}
+
+.dropdown-menu-main {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown-menu-main li a {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.1rem 0;
+    color: #333;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.new-tag {
+    background: rgb(159, 97, 78);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.7rem;
+}
+
+.dropdown-menu-main li a:hover {
+    color: #ff3f6c;
+}
+.nav-drawer-toggle {
+    display: none; /* Hide the toggle button by default */
+}
+
+.nav-drawer {
+    display: none; /* Hide the drawer by default */
+}
+/* Add these media queries at the end of your existing CSS */
+
+/* General responsive adjustments */
+
+@media screen and (max-width: 1300px) {
+    .header-content, .hero-section, .services, .showcase-section {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .service-card {
+        padding: 80px 20px;
+    }
+    .service-card h2 {
+        font-size: 1.8em;
+        margin-bottom: 10px;
+    }
+    .service-card p {
+        font-size: 1em;
+        margin-bottom: 10px;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .header-content, .hero-section, .services, .showcase-section {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .service-card {
+        padding: 40px 20px;
+    }
+    .service-card h2 {
+        font-size: 1.8em;
+        margin-bottom: 10px;
+    }
+    .service-card p {
+        font-size: 0.85em;
+        margin-bottom: 10px;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .content h1 {
+        font-size: 2.5rem;
+    }
+    .content p {
+        font-size: 0.9rem;
+    }
+    .hero-section h1 {
+        font-size: 2.2em;
+    }
+    .hero-section p {
+        font-size: 1em;
+    }
+    .service-card h2 {
+        font-size: 2.2em;
+    }
+    .service-card p {
+        font-size: 1em;
+    }
+    .hero-section2 h1 {
+        font-size: 2.5rem;
+    }
+    .hero-section2 p {
+        font-size: 1rem;
+    }
+    .showcase-section h2 {
+        font-size: 2rem;
+    }
+    .showcase-section p {
+        font-size: 1rem;
+    }
+    .service-card {
+        padding: 60px 30px;
+    }
+    .service-card h2 {
+        font-size: 2em;
+        margin-bottom: 15px;
+    }
+    .service-card p {
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .header-content {
+        flex-direction: row;
+        align-items: stretch;
+        gap: 20px;
+        }
+
+    .search-section {
+        order: 2;
+        margin-top: 10px;
+    }
+    .main-nav {
+        order: 1;
+    }
+    .nav-list {
+        justify-content: center;
+    }
+    .content {
+        left: 5%;
+        max-width: 90%;
+    }
+    .services {
+        flex-direction: column;
+        height: auto;
+    }
+    .service-card {
+        padding: 40px 20px;
+    }
+    .service-card h2 {
+        font-size: 1.8em;
+        margin-bottom: 10px;
+    }
+    .service-card p {
+        font-size: 0.85em;
+        margin-bottom: 10px;
+    }
+    .Lehenga-item {
+        width: 48%;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .content h1 {
+        font-size: 2rem;
+    }
+    .content p {
+        font-size: 0.8rem;
+    }
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+    .hero-section {
+        padding: 50px 20px;
+        height: auto;
+    }
+    .hero-section h1 {
+        font-size: 1.8em;
+    }
+    .hero-section p {
+        font-size: 0.9em;
+    }
+    .service-card {
+        padding: 30px 15px;
+    }
+    .service-card h2 {
+        font-size: 1.6em;
+        margin-bottom: 8px;
+    }
+    .service-card p {
+        font-size: 0.8em;
+        margin-bottom: 8px;
+    }
+    .hero-section2 {
+        height: 50vh;
+    }
+    .hero-section2 h1 {
+        font-size: 2rem;
+    }
+    .hero-section2 p {
+        font-size: 0.9rem;
+    }
+    .showcase-section h2 {
+        font-size: 1.8rem;
+    }
+    .showcase-section p {
+        font-size: 0.9rem;
+    }
+    .Lehenga-item {
+        width: 100%;
+    }
+}
+
+/* Adjustments for the header and navigation */
+@media screen and (max-width: 768px) {
+
+    
+    .header-icons, 
+    .main-nav {
+        display: none;
+    }
+    .nav-drawer .header-icons,
+    .nav-drawer .main-nav {
+        display: block;
+        margin-top: 20px;
+    }
+    .search-bar {
+        width: 100%;
+        margin-right: 0;
+    }
+    .nav-list {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .profile-dropdown .dropdown-content {
+        width: 100%;
+        left: 0;
+    }
+    .service-card p {
+        font-size: 0.9em;
+    }
+    .header-content {
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .search-section {
+            order: 2;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        .header-icons, .main-nav {
+            display: none;
+        }
+        
+        .nav-drawer-toggle {
+            display: block;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .nav-drawer {
+            display: block; /* Make the drawer available for display */
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 300px;
+            height: 100%;
+            background-color: rgb(114, 52, 56);
+            transition: left 0.3s ease;
+            z-index: 1001;
+            font-family: 'Poppins', sans-serif;
+
+        }
+        
+        .nav-drawer.open {
+            left: 0;
+        }
+        
+        .nav-drawer-content {
+            padding: 15px;
+
+        }
+        
+        .nav-drawer-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        
+
+        
+        .nav-drawer .nav-list {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .nav-drawer .nav-list li {
+            margin: 10px 0;
+        }
+}
+
+/* Ensure the header remains visible on scroll for mobile devices */
+@media screen and (max-width: 768px) {
+    header {
+        position: sticky;
+        top: 0;
+        background-color: rgb(38, 9, 11);
+    }
+
+.dropdown-menu-main li a {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    color: #333;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+    transition: color 0.2s ease;
+}
+
+.nav-drawer .header-icons a {
+    margin-right: 15px;
+    margin-left: 15px;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.nav-drawer .cart-icon {
+    margin-right: 15px;
+    margin-left: 15px;
+    margin-bottom: 10px; /* Adjust the value as per your preference */
+}
+.nav-drawer .heart-icon {
+    margin-top: 40px; /* Adjust this value to move the heart icon further down */
+}
+
+}
+
+.service-card {
+    transition: padding 0.3s ease, font-size 0.3s ease;
+}
+
+
+    </style>
+</head>
+<body>
+    <header id="main-header">
+        <div class="header-content">
+            <div class="search-section">
+                <div class="header-icons">
+                    <a href="{% url 'cart_view' %}" class="cart-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </a>
+                    <a href="{% url 'wishlist' %}" class="heart-icon">
+                        <i class="fas fa-heart"></i>
+                    </a>
+                </div>  
+                <div class="search-bar">
+                    <input type="text" placeholder="Search for Style, Collections & more">
+                </div>
+
+            </div>
+            <button id="nav-drawer-toggle" class="nav-drawer-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li><a href="{% url 'blog_page' %}">Blog</a></li>
+                    <li><a href="{% url 'aboutus_page' %}">About us</a></li>
+                    <li class="profile-dropdown">
+                        <a href="#"><i class="fas fa-user"></i></a>
+                        <div class="dropdown-content">
+                            <div class="dropdown-header">
+                                <h3>Welcome</h3>
+                                {% if not username %}
+                                    <p>To access account and manage orders</p>
+                                    <form method="GET" action="{% url 'login_page' %}">
+                                        <button type="submit" class="login-btn">LOGIN / SIGNUP</button>
+                                    </form>  
+                                {% else %}
+                                    <p>{{ username }}</p>  
+                                    {% if user.is_authenticated %}
+                                        <form method="POST" action="{% url 'logout' %}">
+                                            {% csrf_token %}
+                                            <button type="submit" class="login-btn">Logout</button>
+                                        </form>
+                                    {% endif %}
+                                {% endif %}                           
+                            </div>
+                            <ul class="dropdown-menu-main">
+                                <li><a href="{% url 'order_confirmation' %}">Orders</a></li>
+                                <li><a href="{% url 'contact' %}">Contact Us</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div id="nav-drawer" class="nav-drawer">
+        <div class="nav-drawer-content">
+            <button class="nav-drawer-close">&times;</button>
+            <div class="header-icons">
+                <a href="{% url 'cart_view' %}" class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </a>
+                <a href="{% url 'wishlist' %}" class="heart-icon">
+                    <i class="fas fa-heart"></i>
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li><a href="{% url 'blog_page' %}">Blog</a></li>
+                    <li><a href="{% url 'aboutus_page' %}">About us</a></li>
+                    <li class="profile-dropdown">
+                        <a href="#"><i class="fas fa-user"></i></a>
+                        <div class="dropdown-content">
+                            <div class="dropdown-header">
+                                <h3>Welcome</h3>
+                                <p>To access account and manage orders</p>
+                                <form method="GET" action="{% url 'login_page' %}">
+                                    <button type="submit" class="login-btn"> LOGIN / SIGNUP</button>
+                                </form>                            
+                            </div>
+                            <ul class="dropdown-menu-main">
+                                <li><a href="{% url 'order_confirmation' %}" >Your Orders</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    
+
+    <section class="hero">
+        <div class="slider">
+            <div class="slide">
+                <img src="{% static 'images/IMG_1191.JPG' %}" alt="Lehenga Image"z>
+                <div class="content">
+                    <h1> LEHENGAS</h1>
+                    <p>Welcome to Lehengas. From traditional Lehengas to modern designs, we offer a wide range of options to suit every taste and budget.</p>
+                    <form method="GET" action="{% url 'product_list' %}">
+                        <button type="submit" class="btn">Shop Now</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="hero-section">
+        <h1>Explore Our Collection</h1>
+        <p>At  Lehengas Hub, we specialize in providing a seamless shopping experience for those looking for the perfect Lehenga. Whether you prefer traditional silk Lehengas, elegant chiffon Lehengas, or trendy designer Lehengas, our dedicated team ensures that your Lehenga shopping experience is a delightful one. Step into the world of Indian ethnic wear with  Lehengas Hub.</p>
+    </div>
+    <br>
+    <br>
+    <section class="services">
+        <div class="service-card">
+            <h2>Lehenga Selection Process</h2>
+            <p>Using our extensive collection and knowledge of Lehengas, we curate a personalized selection process tailored to your preferences, ensuring that you find the ideal Lehenga that complements your style</p>
+            <a href="#">Contact &gt;</a>
+        </div>
+        <div class="service-card">
+            <h2>Expert Guidance</h2>
+            <p>Our experienced team of Lehenga specialists provides tailored guidance at every stage of your shopping journey, from exploring different Lehenga options to making the final purchase. We strive to make your Lehenga shopping experience stress-free and enjoyable.</p>
+            <a href="#">Contact &gt;</a>
+        </div>
+        <div class="service-card">
+            <h2>Lehenga Valuation Services</h2>
+            <p>At Freelance Lehengas Hub, we offer expert Lehenga valuation services, ensuring that you receive accurate assessments for your Lehenga investments. Trust us to guide you in making informed decisions about your Lehenga purchases.</p>
+            <a href="#">Contact &gt;</a>
+        </div>
+    </section>
+    <section class="hero-section2">
+        <div class="content2">
+            <h1>Wide Variety of Lehengas</h1>
+            <br>
+            <form method="GET" action="{% url 'book_appointment' %}">
+                <button type="submit" class="btn">Book Appointment</button>
+            </form>        
+        </div>
+    </section>
+
+    <!-- Lehenga Showcase Section -->
+    <section class="showcase-section">
+        <h2>Lehenga Showcase Platform</h2>
+        <p>High-Quality Images and Intuitive Shopping</p>
+        <div class="Lehenga-gallery">
+            <div class="Lehenga-item">
+                <img src="{% static 'images/HP 136.JPEG' %}" alt="Lehenga 1">
+                <form method="GET" action="{% url 'product_list' %}">
+                    <button type="submit" class="see-more-btn">See more</button>
+                </form>            
+            </div>
+            <div class="Lehenga-item">
+                <img src="{% static 'images/IMG_1186.jpg' %}" alt="Lehenga 2">
+                <form method="GET" action="{% url 'product_list' %}">
+                    <button type="submit" class="see-more-btn">See more</button>
+                </form>             </div>
+            <div class="Lehenga-item">
+                <img src="{% static 'images/IMG_1184.jpg' %}"  alt="Lehenga 3">
+                <form method="GET" action="{% url 'product_list' %}">
+                    <button type="submit" class="see-more-btn">See more</button>
+                </form>             
+            </div>
+            <div class="Lehenga-item">
+                <img src="{% static 'images/IMG_2379.JPG' %}"  alt="Lehenga 4">
+                <form method="GET" action="{% url 'product_list' %}">
+                    <button type="submit" class="see-more-btn">See more</button>
+                </form>             
+            </div>
+        </div>
+    </section>
+    <div class="container-fluid pb-0 mb-0 justify-content-center text-light ">
+        <footer>
+            <div class="row my-5 justify-content-center py-5">
+                <div class="col-11">
+                    <div class="row ">
+                        <div class="col-xl-8 col-md-4 col-sm-4 col-12   my-auto mx-auto a"><h3 class="text-muted mb-md-0 mb-5 bold-text">Lehenga.</h3></div>
+                        <div class="col-xl-2 col-md-4 col-sm-4 col-12">
+                            <h6 class="mb-3 mb-lg-4 bold-text"><b>CONSUMER POLICY</b></h6>
+                            <ul class="list-unstyled">
+                                <li><a style="color: rgb(98, 116, 130); text-decoration: none;" href="{% url 'cancellation_return' %}">Cancellation & Returns</a></li>
+                                <li><a style="color: rgb(98, 116, 130); text-decoration: none;" href="{% url 'terms_of_use' %}">Terms Of Use</a></li>
+                                <li><a style="color: rgb(98, 116, 130); text-decoration: none;" href="{% url 'privacy_policy' %}">Privacy Policy</a></li>
+                                <li><a style="color: rgb(98, 116, 130); text-decoration: none;" href="{% url 'contact' %}">Contact us</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-xl-2 col-md-4 col-sm-4 col-12"><h6 class="mb-3 mb-lg-4 text-muted bold-text mt-sm-0 mt-5"><b>ADDRESS</b></h6><p class="mb-1">605, RATAN ICON BUILDING</p><p>SEAWOODS SECTOR</p> </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-xl-8 col-md-4 col-sm-4 col-auto my-md-0 mt-5 order-sm-1 order-3 align-self-end">
+                            <p class="social text-muted mb-0 pb-0 bold-text">
+                                <span class="mx-2"><i class="fab fa-facebook" aria-hidden="true"></i></span>
+                                <span class="mx-2"><i class="fab fa-linkedin" aria-hidden="true"></i></span>
+                                <span class="mx-2"><i class="fab fa-twitter" aria-hidden="true"></i></span>
+                                <span class="mx-2"><i class="fab fa-instagram" aria-hidden="true"></i></span>
+                            </p>
+                            <small class="rights"><span>&#174;</span> Lehenga All Rights Reserved.</small>
+                        </div>
+                                                <div class="col-xl-2 col-md-4 col-sm-4 col-auto order-1 align-self-end "><h6 class="mt-55 mt-2 text-muted bold-text"><b>ANIRUDH SINGLA</b></h6><small> <span><i class="fa fa-envelope" aria-hidden="true"></i></span> anirudh@gmail.com</small></div>
+                        <div class="col-xl-2 col-md-4 col-sm-4 col-auto order-2 align-self-end mt-3   "><h6 class="text-muted bold-text"><b>RISHABH SHEKHAR</b></h6><small><span><i class="fa fa-envelope" aria-hidden="true"></i></span> rishab@gmail.com</small></div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+
+document.addEventListener('DOMContentLoaded', function() {
+    const navDrawerToggle = document.getElementById('nav-drawer-toggle');
+    const navDrawer = document.getElementById('nav-drawer');
+    const navDrawerClose = navDrawer.querySelector('.nav-drawer-close');
+
+    navDrawerToggle.addEventListener('click', function() {
+        navDrawer.classList.add('open');
+    });
+
+    navDrawerClose.addEventListener('click', function() {
+        navDrawer.classList.remove('open');
+    });
+});
+
+        document.addEventListener('DOMContentLoaded', function() {
+    var header = document.getElementById('main-header');
+    var scrollThreshold = 50; // Adjust this value to change when the header changes color
+
+    window.addEventListener('scroll', function() {
+        if (window.pageYOffset > scrollThreshold) {
+            header.classList.add('header-scrolled');
+        } else {
+            header.classList.remove('header-scrolled');
+        }
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    var searchBar = document.querySelector('.search-bar input');
+    
+    searchBar.addEventListener('focus', function() {
+        this.parentElement.classList.add('focused');
+    });
+    
+    searchBar.addEventListener('blur', function() {
+        this.parentElement.classList.remove('focused');
+    });
+});
+    </script>
+</body>
+</html>

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cancel Order</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            margin-top: 100px;
+        }
+        .card {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            margin-bottom: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+        .card-image img {
+            width: 100px;
+            height: auto;
+            border-radius: 4px;
+        }
+        .card-name, .card-price, .card-quantity {
+            text-align: center;
+        }
+        .cancel {
+            margin: 20px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        label {
+            font-size: 1rem;
+            margin-left: 10px;
+            color: #34495e;
+        }
+        .reason {
+            margin-bottom: 15px;
+        }
+        .btn-cancel {
+            background-color: rgb(159, 97, 78);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        .btn-cancel:hover {
+            background-color: #c0392b;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .btn-cancel:active {
+            transform: scale(0.98);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            resize: vertical;
+            margin-top: 10px;
+        }
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .btn-cancel:focus {
+            animation: pulse 0.5s ease-in-out;
+        }
+        /* Responsive Styles for 767px and below */
+@media (max-width: 767px) {
+  .container {
+    margin-top: 80px;
+  }
+
+  .card {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .card-image img {
+    width: 80px;
+  }
+
+  .card-name,
+  .card-price,
+  .card-quantity {
+    text-align: left;
+  }
+
+  .cancel {
+    padding: 20px;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  label {
+    font-size: 0.9rem;
+  }
+
+  .btn-cancel {
+    font-size: 0.9rem;
+    padding: 10px 16px;
+  }
+}
+
+/* Responsive Styles for 480px and below */
+@media (max-width: 480px) {
+  .container {
+    padding: 10px;
+  }
+
+  .card {
+    grid-template-columns: 1fr;
+    padding: 15px;
+  }
+  .card-image {
+    text-align: center;
+  }
+
+
+  .card-image img {
+    width: 70px;
+  }
+
+  .card-name,
+  .card-price,
+  .card-quantity {
+    text-align: center;
+  }
+
+  .cancel {
+    padding: 15px;
+  }
+
+  h2 {
+    font-size: 1.3rem;
+  }
+
+  label {
+    font-size: 0.8rem;
+  }
+
+  .btn-cancel {
+    font-size: 0.8rem;
+    padding: 8px 14px;
+  }
+}
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+  text-decoration: none;
+  list-style: none;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  margin: 0; /* Ensure no default margin */
+}
+
+nav {
+  background: white;
+  height: 80px;
+  width: 100%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  position: fixed; /* Fix the nav to the top */
+  top: 0; /* Align to the very top */
+  left: 0; /* Ensure it spans the full width */
+  z-index: 1000; /* Ensure it's above other content */
+}
+
+label.logo {
+  color: rgb(114, 52, 56);
+  font-size: 25px;
+  line-height: 80px;
+  padding: 0 100px;
+  font-weight: bold;
+  font-family: 'Playfair Display', serif;
+}
+
+nav ul {
+  float: right;
+  margin-right: 20px;
+}
+
+nav ul li {
+  display: inline-block;
+  line-height: 80px;
+  margin: 0 5px;
+}
+
+nav ul li a {
+  color: rgb(114, 52, 56);
+  font-size: 17px;
+  padding: 7px 13px;
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+
+a.active,
+a:hover {
+  color: rgb(114, 52, 56);
+  transition: .5s;
+}
+
+.checkbtn {
+  font-size: 22px;
+  color: rgb(114, 52, 56);
+  float: right;
+  line-height: 80px;
+  margin-right: 30px;
+  cursor: pointer;
+  display: none;
+}
+
+#check {
+  display: none;
+}
+
+/* Add padding to the top of the main content to account for the fixed nav */
+.main-heading {
+  padding-top: 100px; /* Adjust this value based on your nav height */
+}
+
+@media (max-width: 1050px) {
+  label.logo {
+    padding-left: 30px;
+  }
+  nav ul li a {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 890px) {
+  .checkbtn {
+    display: block;
+  }
+  label.logo {
+    font-size: 22px;
+  }
+  ul {
+    position: fixed;
+    width: 100%;
+    height: calc(100vh - 80px); /* Adjust for nav height */
+    background: rgb(240, 237, 237);
+    top: 80px;
+    left: -100%;
+    text-align: center;
+    transition: all .5s;
+    z-index: 999;
+  }
+  nav ul li {
+    display: block;
+    margin: 50px 0;
+    line-height: 30px;
+  }
+  nav ul li a {
+    font-size: 20px;
+  }
+  a:hover,
+  a.active {
+    background: none;
+    color: rgb(114, 52, 56);
+  }
+  #check:checked ~ ul {
+    left: 0;
+  }
+}
+
+</style>
+<body>
+  <nav>
+    <input type="checkbox" id="check">
+    <!-- Menu icon -->
+    <label for="check" class="checkbtn">
+      <i class="fas fa-bars"></i>
+    </label>
+    <!-- Site logo -->
+    <label class="logo">LEHENGA</label>
+    <!-- Navigation links -->
+    <ul>
+      <li><a class="active" href="{% url 'main_page' %}">Home</a></li>
+      <li><a href="{% url 'aboutus_page' %}">About Us</a></li>
+      <li><a href="{% url 'cart_view' %}"><i class="fas fa-shopping-cart"></i></a></li>
+      <li><a href="{% url 'wishlist' %}"><i class="fas fa-heart"></i></a></li>
+      <li><a href="#"><i class="fas fa-user"></i></a></li>
+   </ul>
+  </nav>
+
+    <div class="container">
+        <!-- Order Details Card -->
+        <div class="card">
+            <div class="card-image">
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            </div>
+            <div class="card-name">
+                <p><strong>{{ product.name }}</strong></p>
+            </div>
+            <div class="card-price">
+                <p><strong>${{ product.price }}</strong></p>
+            </div>
+            <div class="card-quantity">
+                <p><strong>Quantity:</strong> {{ quantity }}</p>
+            </div>
+        </div>
+
+        <!-- Cancellation Reasons -->
+        <div class="cancel">
+            <h2>Cancel Reason</h2>
+            <div class="reason">
+                <input type="radio" id="wrong-product" name="cancel_reason" value="ordered_wrong_product">
+                <label for="wrong-product">Ordered the wrong product</label>
+            </div>
+            <div class="reason">
+                <input type="radio" id="better-price" name="cancel_reason" value="found_better_price">
+                <label for="better-price">Found a better price elsewhere</label>
+            </div>
+            <div class="reason">
+                <input type="radio" id="changed-mind" name="cancel_reason" value="changed_mind">
+                <label for="changed-mind">Changed my mind</label>
+            </div>
+            <div class="reason">
+                <input type="radio" id="delayed-shipping" name="cancel_reason" value="shipping_delay">
+                <label for="delayed-shipping">Shipping is delayed</label>
+            </div>
+            <div class="reason">
+                <input type="radio" id="other" name="cancel_reason" value="other">
+                <label for="other">Other (Please specify)</label>
+            </div>
+            <textarea id="other-reason" rows="4" cols="50" placeholder="Please specify your reason if you chose 'Other'"></textarea>
+
+            <form method="POST" action="{% url 'delete_order' product.id %}">
+                {% csrf_token %}
+                <button type="submit" class="btn-cancel btn btn-danger">
+                    Cancel Order
+                </button>
+            </form>                        
+
+            <!-- Modal -->
+
+        </div>
+    </div>
+
+
+</body>
+</html>

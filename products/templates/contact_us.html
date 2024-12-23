@@ -1,0 +1,673 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', Arial, sans-serif;
+            background-color: #f0f0f0;
+            height: 100%;
+            min-height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 100%;
+            max-width: 1000px;
+            display: flex;
+            margin: 20px;
+        }
+
+        .image-section {
+            flex: 1;
+            position: relative;
+            min-height: 500px;
+        }
+
+        .image-section img {
+            width: 100%;
+            height: 100%;
+            object-fit:fill;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .contact-overlay {
+            position: absolute;
+            bottom: 60px;
+            left: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            padding: 20px;
+            width: calc(100% - 80px);
+            box-sizing: border-box;
+            max-width: 300px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-overlay h3 {
+            margin: 0 0 15px 0;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            color: #666;
+        }
+
+        .contact-item i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+            color: #000;
+        }
+
+        .image-text {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: white;
+            font-size: clamp(18px, 4vw, 24px);
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 100%;
+            max-width: 1000px;
+            display: flex;
+            margin: 20px;
+        }
+
+        .image-section {
+            flex: 1;
+            position: relative;
+            min-height: 400px;
+        }
+
+        .image-section img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .image-text {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: white;
+            font-size: clamp(18px, 4vw, 24px);
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .form-section {
+            flex: 1;
+            padding: clamp(20px, 5vw, 40px);
+            min-width: 280px;
+        }
+
+        h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-weight: 600;
+            font-size: clamp(20px, 5vw, 24px);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: clamp(12px, 3vw, 14px);
+            font-weight: 300;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: clamp(14px, 3vw, 16px);
+        }
+
+        .name-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .name-group .form-group {
+            flex: 1;
+        }
+
+        button {
+            width: 100%;
+            padding: clamp(8px, 2vw, 10px);
+            background-color: rgb(159, 97, 78);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: clamp(14px, 3vw, 16px);
+            font-weight: 400;
+            font-family: 'Poppins', Arial, sans-serif;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #333;
+        }
+
+        /* Tablet Breakpoint */
+        @media (max-width: 900px) {
+            .card {
+                max-width: 600px;
+                flex-direction: column;
+            }
+
+            .image-section {
+                min-height: 300px;
+            }
+        }
+
+        /* Mobile Breakpoint */
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+
+            .card {
+                margin: 10px;
+            }
+
+            .image-section {
+                min-height: 400px;
+            }
+
+            .name-group {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .form-section {
+                padding: 20px;
+            }
+        }
+
+        /* Small Mobile Breakpoint */
+        @media (max-width: 320px) {
+            .card {
+                margin: 5px;
+            }
+
+            .form-section {
+                padding: 15px;
+            }
+
+            .image-section {
+                min-height: 150px;
+            }
+        }
+
+        .profile-popup {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 250px;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            z-index: 1000;
+            padding: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .user-nav-item:hover .profile-popup {
+            display: block;
+        }
+        .user-nav-item {
+    position: relative;
+}
+
+.profile-popup {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    width: 200px;
+    height: 200px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    z-index: 1000;
+    transform: translateY(-10px);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease-in-out;
+}
+
+.user-nav-item:hover .profile-popup {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+}
+
+.profile-popup h3 {
+    
+  font-family: 'Poppins', Arial, sans-serif;
+  font-weight: 600;
+    color: rgb(114, 52, 56);
+    text-align:start;
+    margin-bottom: 1px; 
+
+}
+
+.profile-popup p {
+    height: 50px;
+  font-family: 'Poppins', Arial, sans-serif;
+  font-size: small;
+    color: #6b7280;
+    text-align: start;
+    margin-bottom: 1px; /* Kept some margin for form spacing */
+}
+
+.login-btn {
+    width: 100%;
+    height: 50px; /* Explicitly set the button height */
+    padding: 0; /* Optional: Set padding to 0 to avoid adding to the height */
+    background-color: rgb(114, 52, 56);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Poppins', Arial, sans-serif;
+    font-weight: 500;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 40px; /* Center-align the text vertically within the button */
+}
+
+
+.login-btn:hover {
+    background-color: rgb(96, 44, 48);
+}
+
+.dropdown-menu {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+    padding: 10px 0;
+    display: none;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.3s ease-in-out;
+}
+
+.user-nav-item:hover .dropdown-menu {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.dropdown-menu li {
+    padding: 8px 20px;
+}
+
+.dropdown-menu li a {
+  font-family: 'Poppins', Arial, sans-serif;
+  color: rgb(114, 52, 56);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    display: block;
+}
+
+.dropdown-menu li a:hover {
+    color: rgb(96, 44, 48);
+}
+
+  * {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Poppins', Arial, sans-serif;
+    margin: 0; /* Ensure no default margin */
+  }
+  
+  nav {
+    background: white;
+    height: 80px;
+    width: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+    position:relative;
+    top: 0; /* Align to the very top */
+    left: 0;
+    display: flex; 
+    justify-content: space-between;  /* Spread out logo and menu */
+    /* Add flexbox */
+    /* Ensure it spans the full width */
+  }
+  
+  label.logo {
+    color: rgb(114, 52, 56);
+    font-size: 25px;
+    line-height: 80px;
+    padding: 0 40px;
+    font-weight: bold;
+    font-family: 'Poppins', Arial, sans-serif;
+  }
+  
+  nav ul {
+    float: right;
+    margin-right: 20px;
+  }
+  
+  nav ul li {
+    display: inline-block;
+    line-height: 80px;
+    margin: 0 5px;
+  }
+  
+  nav ul li a {
+    color: rgb(114, 52, 56);
+    font-size: 17px;
+    padding: 7px 13px;
+    border-radius: 3px;
+    text-transform: uppercase;
+  }
+  
+  a.active,
+  a:hover {
+    color: rgb(114, 52, 56);
+    transition: .5s;
+  }
+  
+  .checkbtn {
+    font-size: 22px;
+    color: rgb(114, 52, 56);
+    float: right;
+    line-height: 80px;
+    margin-left: 20px;
+    margin-top: 3px;
+    cursor: pointer;
+    display: none;
+  }
+  
+  #check {
+    display: none;
+  }
+  
+  /* Add padding to the top of the main content to account for the fixed nav */
+  .main-heading {
+    padding-top: 100px; /* Adjust this value based on your nav height */
+  }
+  
+  @media (max-width: 1050px) {
+    label.logo {
+      padding-left: 30px;
+    }
+    nav ul li a {
+      font-size: 16px;
+    }
+  }
+  
+  @media (max-width: 890px) {
+    .checkbtn {
+      display: block;
+    }
+    label.logo {
+      font-size: 22px;
+    }
+    nav ul {
+      position: fixed;
+      width: 100%;
+      height: calc(100vh - 80px); 
+      background: rgb(240, 237, 237);
+      top: 80px;
+      left: -100%;
+      text-align: center;
+      transition: all .5s;
+      z-index: 999;
+    }
+    nav ul li {
+      display: block;
+      margin: 50px 0;
+      line-height: 30px;
+    }
+    nav ul li a {
+      font-size: 20px;
+    }
+    a:hover,
+    a.active {
+      background: none;
+      color: rgb(114, 52, 56);
+    }
+    #check:checked ~ ul {
+      left: 0;
+    }
+  }
+  
+@import url('https://fonts.googleapis.com/css?family=Rubik&display=swap');
+body {
+    background: linear-gradient(0deg, #fff, 50%, #DEEEFE);
+    font-family: 'Poppins', Arial, sans-serif;
+    background: rgb(66, 31, 33);
+    height: 100 !important;
+}
+
+
+.container-fluid{
+    overflow:hidden; 
+    margin-top: 250px ;
+    background:rgb(66, 31, 33) ;
+    color: #627482  !important;
+    margin-bottom: 0 ;
+    padding-bottom:0  ;
+}
+
+small{
+    font-size: calc(12px + (15 - 12) * ((100vw - 360px) / (1600 - 360))) !important; 
+}
+
+.bold-text{
+    color: #989c9e !important;
+}
+
+
+.mt-55{
+    margin-top: calc(50px + (60 - 50) * ((100vw - 360px) / (1600 - 360))) !important; 
+}
+
+
+ 
+.social{
+    font-size: 21px !important; 
+}
+
+.rights{
+    font-size: calc(10px + (12 - 10) * ((100vw - 360px) / (1600 - 360))) !important; 
+}
+
+
+
+  
+  </style>
+  <body>
+    <nav>
+    <input type="checkbox" id="check">
+    <!-- Menu icon -->
+    <label for="check" class="checkbtn">
+        <i class="fas fa-bars"></i>
+    </label>
+    <!-- Site logo -->
+    <label class="logo">LEHENGA</label>
+    
+    <!-- Navigation links -->
+    <ul>
+        <li><a class="active" href="#">Home</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#"><i class="fas fa-shopping-cart"></i></a></li>
+        <li><a href="#"><i class="fas fa-heart"></i></a></li>
+        <li class="user-nav-item">
+            <a href="#" class="relative">
+                <i class="fas fa-user"></i>
+                <div class="profile-popup">
+                    <h3>Welcome</h3>
+                    {% if not username %}
+                        <p>To access account and manage orders</p>
+                        <form method="GET" action="{% url 'login_page' %}">
+                            <button type="submit" class="login-btn">LOGIN / SIGNUP</button>
+                        </form>  
+                    {% else %}
+                        <p>{{ username }}</p>  
+                        {% if user.is_authenticated %}
+                            <form method="POST" action="{% url 'logout' %}">
+                                {% csrf_token %}
+                                <button type="submit" class="login-btn">Logout</button>
+                            </form>
+                        {% endif %}
+                    {% endif %}                           
+                </div>
+            </a>
+        </li>
+    </ul>
+</nav>
+    <div class="container">
+        <div class="card">
+            <div class="image-section">
+                <img src="{% static 'images/HP 518.JPEG' %}" alt="Collection 2018">
+                <div class="contact-overlay">
+                    <h3>Contact Information</h3>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+1 (555) 123-4567</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>contact@yourcompany.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>123 Design Street, City, Country</span>
+                    </div>
+                </div>
+                <div class="image-text">#Collection 2018</div>
+            </div>
+            <div class="form-section">
+                <h2>CONTACT US</h2>
+                <form method="POST" action="{% url 'signup_page' %}">
+                    {% csrf_token %}
+                    <div class="name-group">
+                        <div class="form-group">
+                            <label for="firstName">Name</label>
+                            <input type="text" id="firstName" name="firstName" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="number">Phone Number</label>
+                        <input type="tel" id="number" name="number" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Message</label>
+                        <input type="text" id="password" name="password" required>
+                    </div>
+                    <button type="submit">SEND →</button>
+                </form>
+            </div>
+        </div>
+    </div>
+  <div class="container-fluid pb-0 mb-0 justify-content-center text-light ">
+      <footer>
+          <div class="row my-5 justify-content-center py-5">
+              <div class="col-11">
+                  <div class="row ">
+                      <div class="col-xl-8 col-md-4 col-sm-4 col-12   my-auto mx-auto a"><h3 class="text-muted mb-md-0 mb-5 bold-text">Lehenga.</h3></div>
+                      <div class="col-xl-2 col-md-4 col-sm-4 col-12">
+                          <h6 class="mb-3 mb-lg-4 bold-text"><b>CONSUMER POLICY</b></h6>
+                          <ul class="list-unstyled">
+                              <li><a style="color: rgb(98, 116, 130); text-decoration: none;" href="{% url 'cancellation_return' %}">Cancellation & Returns</a></li>
+                              <li><a style="color: rgb(98, 116, 130); text-decoration: none;" href="{% url 'terms_of_use' %}">Terms Of Use</a></li>
+                              <li><a style="color: rgb(98, 116, 130); text-decoration: none;" href="{% url 'privacy_policy' %}">Privacy Policy</a></li>
+                              <li><a style="color: rgb(98, 116, 130); text-decoration: none;" href="{% url 'contact' %}">Contact us</a></li>
+                          </ul>
+                      </div>
+                      <div class="col-xl-2 col-md-4 col-sm-4 col-12"><h6 class="mb-3 mb-lg-4 text-muted bold-text mt-sm-0 mt-5"><b>ADDRESS</b></h6><p class="mb-1">605, RATAN ICON BUILDING</p><p>SEAWOODS SECTOR</p> </div>
+                  </div>
+                  <div class="row ">
+                      <div class="col-xl-8 col-md-4 col-sm-4 col-auto my-md-0 mt-5 order-sm-1 order-3 align-self-end">
+                          <p class="social text-muted mb-0 pb-0 bold-text">
+                              <span class="mx-2"><i class="fab fa-facebook" aria-hidden="true"></i></span>
+                              <span class="mx-2"><i class="fab fa-linkedin" aria-hidden="true"></i></span>
+                              <span class="mx-2"><i class="fab fa-twitter" aria-hidden="true"></i></span>
+                              <span class="mx-2"><i class="fab fa-instagram" aria-hidden="true"></i></span>
+                          </p>
+                          <small class="rights"><span>&#174;</span> Lehenga All Rights Reserved.</small>
+                      </div>
+                                              <div class="col-xl-2 col-md-4 col-sm-4 col-auto order-1 align-self-end "><h6 class="mt-55 mt-2 text-muted bold-text"><b>ANIRUDH SINGLA</b></h6><small> <span><i class="fa fa-envelope" aria-hidden="true"></i></span> anirudh@gmail.com</small></div>
+                      <div class="col-xl-2 col-md-4 col-sm-4 col-auto order-2 align-self-end mt-3   "><h6 class="text-muted bold-text"><b>RISHABH SHEKHAR</b></h6><small><span><i class="fa fa-envelope" aria-hidden="true"></i></span> rishab@gmail.com</small></div>
+                  </div>
+              </div>
+          </div>
+      </footer>
+  </div>
+</body>
+</html>

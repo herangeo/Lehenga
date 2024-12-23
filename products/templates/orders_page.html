@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+    <title>Lehenga Collection</title>
+    
+    <style>
+        body {
+            background: #f4f4f4;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 400;
+        }
+
+        .title {
+            margin-bottom: 5vh;
+        }
+
+        .card {
+            margin: auto;
+            max-width: 950px;
+            width: 90%;
+            box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            border-radius: 1rem;
+            border: transparent;
+        }
+
+        @media(max-width:767px) {
+            .card {
+                margin: 3vh auto;
+            }
+        }
+
+        .cart {
+            background-color: #fff;
+            padding: 4vh 5vh;
+            border-bottom-left-radius: 1rem;
+            border-top-left-radius: 1rem;
+        }
+
+        @media(max-width:767px) {
+            .cart {
+                padding: 4vh;
+                border-bottom-left-radius: unset;
+                border-top-right-radius: 1rem;
+            }
+        }
+
+        .summary {
+            background-color: #f7f7f7;
+            border-top-right-radius: 1rem;
+            border-bottom-right-radius: 1rem;
+            padding: 4vh;
+            color: rgb(65, 65, 65);
+        }
+
+        @media(max-width:767px) {
+            .summary {
+                border-top-right-radius: unset;
+                border-bottom-left-radius: 1rem;
+            }
+            .card{
+                margin-top: 100px;
+            }
+        }
+        @media (max-width: 480px) {
+        .card {
+            width: 100%;
+            margin: 3vh 0;
+        }
+
+        .cart {
+            padding: 3vh;
+            border-top-right-radius: 1rem;
+        }
+
+        .summary {
+            padding: 3vh;
+        }
+
+        .title b {
+            font-size: 1.2rem;
+        }
+
+        .row {
+            margin: 2vh 0;
+        }
+
+        .main {
+            padding: 1vh 0;
+        }
+
+        .col-2, .col {
+            padding: 0;
+        }
+
+        a {
+            padding: 0;
+        }
+
+        img {
+            width: 2.5rem;
+        }
+
+        .close {
+            font-size: 0.5rem;
+        }
+
+        h5 {
+            margin-top: 1.5vh;
+        }
+
+        hr {
+            margin-top: 1rem;
+        }
+
+        form {
+            padding: 1vh 0;
+        }
+
+        select, input {
+            margin-bottom: 2vh;
+        }
+
+        .btn {
+            margin-top: 2vh;
+        }
+
+        .title {
+            margin-bottom: 3vh;
+        }
+
+        .back-to-shop {
+            margin-top: 3vh;
+        }
+        }
+        
+
+        .summary .col-2 {
+            padding: 0;
+        }
+
+        .summary .col-10 {
+            padding: 0;
+        }
+
+        .row {
+            margin: 0;
+        }
+
+        .title b {
+            font-size: 1.5rem;
+        }
+
+        .main {
+            margin: 0;
+            padding: 2vh 0;
+            width: 100%;
+        }
+
+        .col-2, .col {
+            padding: 0 1vh;
+        }
+
+        a {
+            padding: 0 1vh;
+        }
+
+        .close {
+            margin-left: auto;
+            font-size: 0.7rem;
+        }
+
+        img {
+            width: 3.5rem;
+        }
+
+        .back-to-shop {
+            margin-top: 4.5rem;
+        }
+
+        h5 {
+            margin-top: 4vh;
+        }
+
+        hr {
+            margin-top: 1.25rem;
+        }
+
+        form {
+            padding: 2vh 0;
+        }
+
+        select, input {
+            border: 1px solid rgba(0, 0, 0, 0.137);
+            padding: 1vh;
+            margin-bottom: 4vh;
+            outline: none;
+            width: 100%;
+            background-color: rgb(247, 247, 247);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            border-color: #4CAF50;
+            box-shadow: 0 0 0 0.2rem rgba(76, 175, 80, 0.25);
+        }
+
+        .btn {
+            background-color: rgb(159, 97, 78);
+            color: white;
+            width: 100%;
+            font-size: 0.9rem;
+            margin-top: 4vh;
+            padding: 1vh;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: rgb(172, 105, 85);
+        }
+
+        a {
+            color: #4CAF50;
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            color: #45a049;
+            text-decoration: none;
+        }
+
+        .quantity-input {
+            width: 60px;
+            text-align: center;
+        }
+
+        .update-btn {
+            background-color: rgb(159, 97, 78);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .update-btn:hover {
+            background-color: rgb(172, 105, 85);
+        }
+
+        .remove-link {
+            color: #f44336;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .remove-link:hover {
+            color: #d32f2f;
+            text-decoration: underline;
+        }
+
+        .btn-danger {
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            height: 30px;
+            width: 90px;
+            border-radius: 3px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: white;
+            padding: 1rem 2rem;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 0.5rem;
+            background: rgb(159, 97, 78);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+  text-decoration: none;
+  list-style: none;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0; /* Ensure no default margin */
+}
+
+nav {
+  background: white;
+  height: 80px;
+  width: 100%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  position: fixed; /* Fix the nav to the top */
+  top: 0; /* Align to the very top */
+  left: 0; /* Ensure it spans the full width */
+  z-index: 1000; /* Ensure it's above other content */
+}
+
+label.logo {
+  color: rgb(114, 52, 56);
+  font-size: 25px;
+  line-height: 80px;
+  padding: 0 100px;
+  font-weight: bold;
+  font-family: 'Playfair Display', serif;
+}
+
+nav ul {
+  float: right;
+  margin-right: 20px;
+}
+
+nav ul li {
+  display: inline-block;
+  line-height: 80px;
+  margin: 0 5px;
+}
+
+nav ul li a {
+  color: rgb(114, 52, 56);
+  font-size: 17px;
+  padding: 7px 13px;
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+
+a.active,
+a:hover {
+  color: rgb(114, 52, 56);
+  transition: .5s;
+}
+
+.checkbtn {
+  font-size: 22px;
+  color: rgb(114, 52, 56);
+  float: right;
+  line-height: 80px;
+  margin-right: 30px;
+  cursor: pointer;
+  display: none;
+}
+
+#check {
+  display: none;
+}
+
+/* Add padding to the top of the main content to account for the fixed nav */
+.main-heading {
+  padding-top: 100px; /* Adjust this value based on your nav height */
+}
+
+@media (max-width: 1050px) {
+  label.logo {
+    padding-left: 30px;
+  }
+  nav ul li a {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 890px) {
+  .checkbtn {
+    display: block;
+  }
+  label.logo {
+    font-size: 22px;
+  }
+  ul {
+    position: fixed;
+    width: 100%;
+    height: calc(100vh - 80px); /* Adjust for nav height */
+    background: rgb(240, 237, 237);
+    top: 80px;
+    left: -100%;
+    text-align: center;
+    transition: all .5s;
+    z-index: 999;
+  }
+  nav ul li {
+    display: block;
+    margin: 50px 0;
+    line-height: 30px;
+  }
+  nav ul li a {
+    font-size: 20px;
+  }
+  a:hover,
+  a.active {
+    background: none;
+    color: rgb(114, 52, 56);
+  }
+  #check:checked ~ ul {
+    left: 0;
+  }
+}
+
+</style>
+<body>
+  <nav>
+    <input type="checkbox" id="check">
+    <label for="check" class="checkbtn">
+      <i class="fas fa-bars"></i>
+    </label>
+    <label class="logo">LEHENGA</label>
+    <ul>
+      <li><a class="active" href="{% url 'main_page' %}">Home</a></li>
+      <li><a href="{% url 'aboutus_page' %}">About Us</a></li>
+      <li><a href="{% url 'cart_view' %}"><i class="fas fa-shopping-cart"></i></a></li>
+      <li><a href="{% url 'wishlist' %}"><i class="fas fa-heart"></i></a></li>
+      <li><a href="#"><i class="fas fa-user"></i></a></li>
+   </ul>
+  </nav>
+    <div class="card">
+        <div class="row">
+            <div class="col-md-12 cart">
+                <div class="title">
+                    <div class="row">
+                        {% if not orders %}
+                        <h2 style="text-align: center;">No orders yet!</h2>
+                        {% else %}
+                        <div class="col"><h4><b>Your Orders </b></h4></div>
+                    </div>
+                </div>
+                
+                <div class="row border-top border-bottom">
+                    <div class="col-2"><b></b></div>
+                    <div class="col"><b>Product Name</b></div>
+                    <div class="col"><b>Price</b></div>
+                    <div class="col"><b>Quantity</b></div>
+                    <div class="col"><b>Arrival Date</b></div>
+                    <div class="col"><b></b></div>
+                </div>
+
+                {% for order in orders %}
+                    <div class="row border-top border-bottom">
+                        <div class="row main align-items-center">
+                            <div class="col-2"><img class="img-fluid" src="{{ order.product.image.url }}"></div>
+                            <div class="col">
+                                <div class="row">{{ order.product.name }}</div>
+                            </div>
+                            <div class="col">
+                                ${{ order.product.price }}
+                            </div>
+                            <div class="col">
+                                {{ order.quantity }}
+                            </div>
+                            <div class="col">
+                                {{ order.arrival_date|date:"F j, Y, g:i a" }}
+                            </div>
+                            <div class="col">
+                                <form method="POST" action="{% url 'cancel_order' order.product.id order.quantity %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger">Cancel</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="back-to-shop"><a href="{% url 'main_page' %}">&leftarrow; Back to shop</a></div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
