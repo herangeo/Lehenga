@@ -227,19 +227,17 @@ def delete_order(request, product_id):
     
     return redirect('order_confirmation')
 
-@custom_login_required
 def product_detail(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     return render(request, 'product_detail.html', {'product': product})
 
 
 
-@custom_login_required
 def product_list(request):
     products = Product.objects.all()  
     return render(request, 'aProducts_page.html', {'products': products})
 
-@custom_login_required
+
 def cart_view(request):
     cart, created = Cart.objects.get_or_create(user=request.user)
     total_price = sum(item.total_price for item in cart.items.all())
