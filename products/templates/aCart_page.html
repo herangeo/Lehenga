@@ -332,6 +332,9 @@ header {
             align-items: center;
             gap: 5px;
         }
+        .profile-popup h3{
+            display: none;
+        }
         .form-group {
             display: flex;
             flex-direction: row; /* Align input and button horizontally */
@@ -610,6 +613,7 @@ small{
     color: #6b7280;
     text-align: start;
     margin-bottom: 10px;
+    margin-top: 20px;
 }
 
 
@@ -815,6 +819,7 @@ small{
                     <a href="#" class="relative">
                       <i class="fas fa-user"></i>
                       <div class="profile-popup">
+                        <h3>Welcome</h3>
                         {% if not username %}
                           <p>To access account and manage orders</p>
                           <form method="GET" action="{% url 'login_page' %}">
