@@ -417,7 +417,7 @@ a:hover {
 .profile-popup p {
   height: 50px;
     font-family: 'Montserrat', sans-serif;
-    font-size: small;
+    font-size: 13px;
     color: #6b7280;
     text-align: start;
     margin-bottom: 10px;
@@ -528,21 +528,21 @@ small{
     <!-- Navigation links -->
     <ul>
         <li><a class="active" href="{% url 'main_page' %}">Home</a></li>
-        <li><a href="{% url 'aboutus_page' %}">About Us</a></li>
+        <li><a href="{% url 'blog_page' %}">Blog</a></li>
         <li><a href="{% url 'cart_view' %}"><i class="fas fa-shopping-cart"></i></a></li>
         <li><a href="{% url 'wishlist' %}"><i class="fas fa-heart"></i></a></li>
         <li class="user-nav-item">
             <a href="#" class="relative">
               <i class="fas fa-user"></i>
               <div class="profile-popup">
-                <h3>Welcome</h3>
                 {% if not username %}
                   <p>To access account</p>
                   <form method="GET" action="{% url 'login_page' %}">
                     <button type="submit" class="login-btn">LOGIN / SIGNUP</button>
                   </form>  
                 {% else %}
-                  <p>{{ username }}</p>  
+                  <p style="color: red;font-size: large;">Welcome !!</p>
+                  <p>{{ username }}</p>
                   {% if user.is_authenticated %}
                     <form method="POST" action="{% url 'logout' %}">
                       {% csrf_token %}
