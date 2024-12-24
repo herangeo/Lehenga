@@ -588,13 +588,13 @@ small{
         <a href="#" class="relative">
           <i class="fas fa-user"></i>
           <div class="profile-popup">
-            <h3>Welcome</h3>
             {% if not username %}
               <p>To access account</p>
               <form method="GET" action="{% url 'login_page' %}">
                 <button type="submit" class="login-btn">LOGIN / SIGNUP</button>
               </form>  
             {% else %}
+              <p style="color: red;font-size: large;">Welcome !!</p>
               <p>{{ username }}</p>  
               {% if user.is_authenticated %}
                 <form method="POST" action="{% url 'logout' %}">
