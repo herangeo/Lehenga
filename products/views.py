@@ -237,7 +237,7 @@ def product_list(request):
     products = Product.objects.all()  
     return render(request, 'aProducts_page.html', {'products': products})
 
-
+@custom_login_required
 def cart_view(request):
     cart, created = Cart.objects.get_or_create(user=request.user)
     total_price = sum(item.total_price for item in cart.items.all())
@@ -294,6 +294,7 @@ def remove_from_wishlist(request, product_id):
         wishlist.products.remove(product)
     
     return redirect('wishlist')
+
 
 
 
