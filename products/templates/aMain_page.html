@@ -783,6 +783,7 @@ input[type="text"]::placeholder {
             color: white;
             font-size: 24px;
             cursor: pointer;
+            margin-top: 8px;
         }
         
         .nav-drawer {
@@ -837,7 +838,20 @@ input[type="text"]::placeholder {
         position: sticky;
         top: 0;
         background-color: rgb(38, 9, 11);
+        height: 70px;
     }
+
+    .search-bar input {
+    width: 100%;
+    padding: 12px 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    height: 40px;
+}
 
 .dropdown-menu-main li a {
     display: flex;
@@ -951,13 +965,24 @@ input[type="text"]::placeholder {
                         <div class="dropdown-content">
                             <div class="dropdown-header">
                                 <h3>Welcome</h3>
-                                <p>To access account</p>
-                                <form method="GET" action="{% url 'login_page' %}">
-                                    <button type="submit" class="login-btn"> LOGIN / SIGNUP</button>
-                                </form>                            
+                                {% if not username %}
+                                    <p>To access accounts</p>
+                                    <form method="GET" action="{% url 'login_page' %}">
+                                        <button type="submit" class="login-btn">LOGIN / SIGNUP</button>
+                                    </form>  
+                                {% else %}
+                                    <p>{{ username }}</p>  
+                                    {% if user.is_authenticated %}
+                                        <form method="POST" action="{% url 'logout' %}">
+                                            {% csrf_token %}
+                                            <button type="submit" class="login-btn">Logout</button>
+                                        </form>
+                                    {% endif %}
+                                {% endif %}                           
                             </div>
                             <ul class="dropdown-menu-main">
-                                <li><a href="{% url 'order_confirmation' %}" >Your Orders</a></li>
+                                <li><a href="{% url 'order_confirmation' %}">Orders</a></li>
+                                <li><a href="{% url 'contact' %}">Contact Us</a></li>
                             </ul>
                         </div>
                     </li>
