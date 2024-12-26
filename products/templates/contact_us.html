@@ -559,10 +559,10 @@ small{
     
     <!-- Navigation links -->
     <ul>
-        <li><a class="active" href="#">Home</a></li>
-        <li><a href="#">About Us</a></li>
-        <li><a href="#"><i class="fas fa-shopping-cart"></i></a></li>
-        <li><a href="#"><i class="fas fa-heart"></i></a></li>
+        <li><a class="active" href="{% url 'main_page' %}">Home</a></li>
+        <li><a href="{% url 'order_confirmation' %}" >Orders</a></li>
+        <li><a href="{% url 'cart_view' %}"><i class="fas fa-shopping-cart"></i></a></li>
+        <li><a href="{% url 'wishlist' %}"><i class="fas fa-heart"></i></a></li>
         <li class="user-nav-item">
             <a href="#" class="relative">
                 <i class="fas fa-user"></i>
