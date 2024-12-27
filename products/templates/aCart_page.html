@@ -796,6 +796,13 @@ small{
     }
   }
 
+  .btn-primary{
+    /* position: relative; */
+    width: 15%;
+    /* margin-top: 50px;
+    right: 250px; */
+    border-color: white;
+  }
 
 </style>
 <body>
@@ -845,28 +852,63 @@ small{
                     <div class="col-md-8 cart">
                         <div class="title">
                             <div class="row">
-                                {% if cart.items.count == 0 %}
-                                <h2 style="text-align: center;">Your cart is empty!</h2>
+                                {% if is_authenticated %}
+                                    {% if cart_items|length == 0 %}
+                                        <h2 style="text-align: center;">Your cart is empty!</h2>
+                                    {% else %}
+                                        <div class="col"><h4><b>Shopping Cart</b></h4></div>
+                                    {% endif %}
                                 {% else %}
-                                    <div class="col"><h4><b>Shopping Cart</b></h4></div>
-                                </div>
-                            </div>   
-                            {% for item in cart.items.all %} 
+                                    {% if cart_items|length == 0 %}
+                                        <h2 style="text-align: center;">Your cart is empty!</h2>
+                                            <a href="{% url 'login_page' %}" class="btn btn-primary" style="position: relative;right: 250px;margin-top: 50px;">Login</a> 
+                                    {% else %}
+                                        <div class="col">
+                                            <h4><b>Shopping Cart</b></h4>
+                                                <a href="{% url 'login_page' %}" class="btn btn-primary">Login</a> 
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                        </div>   
+        
+                        {% if cart_items|length > 0 %}
+                            {% for item in cart_items %}
                                 <div class="row border-top border-bottom">
                                     <div class="row main align-items-center">
                                         <div class="col-sm-2">
-                                            <img class="img-fluid" src="{{ item.product.image.url }}" alt="Product Image">
+                                            {% if is_authenticated %}
+                                                <img class="img-fluid" src="{{ item.product.image.url }}" alt="Product Image">
+                                            {% else %}
+                                                <img class="img-fluid" src="{{ item.product.image.url }}" alt="Product Image">
+                                            {% endif %}
                                         </div>
                                         <div class="col">
-                                            <div class="row">{{ item.product.name }}</div>
-                                            <div class="row">${{ item.product.price }}</div> <!-- Product price below the name -->
+                                            <div class="row">
+                                                {% if is_authenticated %}
+                                                    {{ item.product.name }}
+                                                {% else %}
+                                                    {{ item.product.name }}
+                                                {% endif %}
+                                            </div>
+                                            <div class="row">
+                                                {% if is_authenticated %}
+                                                    ${{ item.product.price }}
+                                                {% else %}
+                                                    ${{ item.product.price }}
+                                                {% endif %}
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col form-group">
                                         <form method="POST" action="{% url 'update_cart' item.product.id %}">
                                             {% csrf_token %}
                                             <label for="quantity" class="quantity-label">Quantity</label>
-                                            <input type="number" name="quantity" value="{{ item.quantity }}" min="1" class="quantity-input">
+                                            {% if is_authenticated %}
+                                                <input type="number" name="quantity" value="{{ item.quantity }}" min="1" class="quantity-input">
+                                            {% else %}
+                                                <input type="number" name="quantity" value="{{ item.quantity }}" min="1" class="quantity-input">
+                                            {% endif %}
                                             <button type="submit" class="update-btn">Update</button>
                                         </form>
                                         <form action="{% url 'remove_from_cart' item.product.id %}" method="POST">
@@ -874,7 +916,7 @@ small{
                                             <button type="submit" class="btn-remove">Remove</button>
                                         </form>
                                     </div>
-                                </div>                    
+                                </div>                
                             {% endfor %}
                             <div class="back-to-shop"><a href="{% url 'main_page' %}">&leftarrow; Back to shop</a><span class="text-muted"></span></div>
                         </div>
@@ -896,34 +938,35 @@ small{
                             </div>
                             <button class="btn" onclick="showCheckoutModal()">CHECKOUT</button>
                         </div>
-                    {% endif %}
-                    <!-- Modal for transaction -->
-                    <div id="checkoutModal" class="modal">
-                        <div class="modal-content">
-                            <span class="close-modal" onclick="closeModal()">&times;</span>
-                            <h2>Total Amount: ${{ total_price }}</h2>
+                        {% endif %}
+                        
+                        <!-- Modal for transaction -->
+                        <div id="checkoutModal" class="modal">
+                            <div class="modal-content">
+                                <span class="close-modal" onclick="closeModal()">&times;</span>
+                                <h2>Total Amount: ${{ total_price }}</h2>
         
-                            <!-- Centered and bigger image -->
-                            <img src="{% static 'images/transaction.png' %}" alt="Transaction Image" class="transaction-img">
+                                <!-- Centered and bigger image -->
+                                <img src="{% static 'images/transaction.png' %}" alt="Transaction Image" class="transaction-img">
         
-                            <!-- Input field for transaction ID -->
-                            <div class="transaction-input">
-                                <label for="transactionId">Transaction ID:</label>
-                                <input type="text" id="transactionId" name="transactionId" placeholder="Enter your transaction ID" required>
+                                <!-- Input field for transaction ID -->
+                                <div class="transaction-input">
+                                    <label for="transactionId">Transaction ID:</label>
+                                    <input type="text" id="transactionId" name="transactionId" placeholder="Enter your transaction ID" required>
+                                </div>
+        
+                                <form id="checkoutForm" method="POST" action="{% url 'checkout' %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="transactionId" id="transactionId" value="">
+                                
+                                    <button class="btn" id="paymentDoneButton" onclick="completePayment()">Payment Done</button>
+                                </form>
                             </div>
-        
-                            <form id="checkoutForm" method="POST" action="{% url 'checkout' %}">
-                                {% csrf_token %}
-                                <input type="hidden" name="transactionId" id="transactionId" value="">
-                            
-                                <button class="btn" id="paymentDoneButton" onclick="completePayment()">Payment Done</button>
-                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-
-          </div>
+        </div>
 
     </div>
 
