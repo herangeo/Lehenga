@@ -15,6 +15,8 @@ from django.contrib.auth import logout
 import os
 import google.generativeai as genai
 from .middleware import custom_login_required
+from django.views.decorators.http import require_POST
+
 
 @custom_login_required
 def protected_view(request):
@@ -146,17 +148,19 @@ def signup_page(request):
 
     return render(request, 'aRegister_page.html')
 
-def login_user(request):  
+def login_user(request):
     if request.method == 'POST':
-        email = request.POST['email'] 
-        password = request.POST['emailPassword']  
+        email = request.POST['email']
+        password = request.POST['emailPassword']
         
         try:
             user = User.objects.get(email=email)
             user = authenticate(request, username=user.username, password=password)
             
             if user is not None:
-                django_login(request, user)  
+                django_login(request, user)
+                # Migrate guest cart to user cart after successful login
+                migrate_guest_cart_to_user(request, user)
                 messages.success(request, "Login successful!")
                 return redirect('main_page')
             else:
@@ -227,9 +231,56 @@ def delete_order(request, product_id):
     
     return redirect('order_confirmation')
 
+# views.py
 def product_detail(request, product_id):
     product = get_object_or_404(Product, id=product_id)
-    return render(request, 'product_detail.html', {'product': product})
+    is_in_cart = False
+    
+    if request.user.is_authenticated:
+        cart = Cart.objects.filter(user=request.user).first()
+        if cart and cart.items.filter(product=product).exists():
+            is_in_cart = True
+    else:
+        # Check session cart
+        guest_cart = request.session.get('guest_cart', {})
+        if str(product_id) in guest_cart:
+            is_in_cart = True
+    
+    context = {
+        'product': product,
+        'is_in_cart': is_in_cart
+    }
+    return render(request, 'product_detail.html', context)
+
+
+@require_POST
+def add_to_cart(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    
+    if request.user.is_authenticated:
+        cart, created = Cart.objects.get_or_create(user=request.user)
+        cart_item, created = CartItem.objects.get_or_create(
+            cart=cart,
+            product=product,
+            defaults={'quantity': 1}
+        )
+        if not created:
+            cart_item.quantity += 1
+            cart_item.save()
+    else:
+        guest_cart = request.session.get('guest_cart', {})
+        product_id_str = str(product_id)
+        guest_cart[product_id_str] = guest_cart.get(product_id_str, 0) + 1
+        request.session['guest_cart'] = guest_cart
+        request.session.modified = True
+
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        return JsonResponse({
+            'status': 'success',
+            'message': 'Product added to cart'
+        })
+    return redirect('cart_view')
+
 
 
 
@@ -237,36 +288,83 @@ def product_list(request):
     products = Product.objects.all()  
     return render(request, 'aProducts_page.html', {'products': products})
 
-@custom_login_required
 def cart_view(request):
-    cart, created = Cart.objects.get_or_create(user=request.user)
-    total_price = sum(item.total_price for item in cart.items.all())
-    return render(request, 'aCart_page.html', {'cart': cart, 'total_price': total_price})
+    if request.user.is_authenticated:
+        cart, _ = Cart.objects.get_or_create(user=request.user)
+        cart_items = cart.items.all()
+        total_price = sum(item.total_price for item in cart_items)
+    else:
+        guest_cart = get_or_create_guest_cart(request)
+        cart_items = []
+        total_price = 0
+        
+        for product_id, quantity in guest_cart.items():
+            product = Product.objects.get(id=int(product_id))
+            cart_items.append({
+                'product': product,
+                'quantity': quantity,
+                'total_price': product.price * quantity
+            })
+            total_price += product.price * quantity
+    
+    return render(request, 'aCart_page.html', {
+        'cart_items': cart_items,
+        'total_price': total_price,
+        'is_authenticated': request.user.is_authenticated
+    })
 
-@custom_login_required
 def add_to_cart(request, product_id):
     product = get_object_or_404(Product, id=product_id)
-    cart, created = Cart.objects.get_or_create(user=request.user)
-    cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product)
-    cart_item.quantity += 1
-    cart_item.save()
-    return redirect('cart_view')
-
-@custom_login_required
-def remove_from_cart(request, product_id):
-    cart = get_object_or_404(Cart, user=request.user)
-    cart_item = CartItem.objects.get(cart=cart, product_id=product_id)
-    cart_item.delete()
-    return redirect('cart_view')
-
-@custom_login_required
-def update_cart(request, product_id):
-    cart = Cart.objects.get(user=request.user) 
-    cart_item = get_object_or_404(CartItem, cart=cart, product_id=product_id)
-    quantity = request.POST.get('quantity')
-    if quantity:
-        cart_item.quantity = int(quantity)
+    
+    if request.user.is_authenticated:
+        cart, _ = Cart.objects.get_or_create(user=request.user)
+        cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product)
+        cart_item.quantity += 1
         cart_item.save()
+    else:
+        guest_cart = get_or_create_guest_cart(request)
+        product_id_str = str(product_id)
+        guest_cart[product_id_str] = guest_cart.get(product_id_str, 0) + 1
+        request.session['guest_cart'] = guest_cart
+        request.session.modified = True
+    
+    return redirect('cart_view')
+
+def remove_from_cart(request, product_id):
+    if request.user.is_authenticated:
+        cart = get_object_or_404(Cart, user=request.user)
+        cart_item = CartItem.objects.get(cart=cart, product_id=product_id)
+        cart_item.delete()
+    else:
+        guest_cart = get_or_create_guest_cart(request)
+        product_id_str = str(product_id)
+        if product_id_str in guest_cart:
+            del guest_cart[product_id_str]
+            request.session['guest_cart'] = guest_cart
+            request.session.modified = True
+    
+    return redirect('cart_view')
+
+def update_cart(request, product_id):
+    quantity = int(request.POST.get('quantity', 0))
+    
+    if request.user.is_authenticated:
+        cart = Cart.objects.get(user=request.user)
+        cart_item = get_object_or_404(CartItem, cart=cart, product_id=product_id)
+        if quantity > 0:
+            cart_item.quantity = quantity
+            cart_item.save()
+        else:
+            cart_item.delete()
+    else:
+        guest_cart = get_or_create_guest_cart(request)
+        product_id_str = str(product_id)
+        if quantity > 0:
+            guest_cart[product_id_str] = quantity
+        else:
+            guest_cart.pop(product_id_str, None)
+        request.session['guest_cart'] = guest_cart
+        request.session.modified = True
     
     return redirect('cart_view')
 
@@ -299,5 +397,30 @@ def remove_from_wishlist(request, product_id):
 
 
 
+def get_or_create_guest_cart(request):
+    """Helper function to get or create a guest cart from session"""
+    cart_items = request.session.get('guest_cart', {})
+    return cart_items
 
+
+def migrate_guest_cart_to_user(request, user):
+    """Helper function to migrate guest cart to user cart after login"""
+    guest_cart = request.session.get('guest_cart', {})
+    if guest_cart:
+        user_cart, _ = Cart.objects.get_or_create(user=user)
+        
+        for product_id, quantity in guest_cart.items():
+            product = Product.objects.get(id=int(product_id))
+            cart_item, created = CartItem.objects.get_or_create(
+                cart=user_cart,
+                product=product,
+                defaults={'quantity': quantity}
+            )
+            if not created:
+                cart_item.quantity += quantity
+                cart_item.save()
+        
+        # Clear guest cart after migration
+        del request.session['guest_cart']
+        request.session.modified = True
 
