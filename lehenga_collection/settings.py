@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-yanaoitye4(1s&)f8zjv)s_4l4gi)(m4eyp5f4k(ukw^%8qh02
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['lehenga-1.onrender.com']
+ALLOWED_HOSTS = ['lehenga-1.onrender.com','127.0.0.1']
 
 
 # Application definition
@@ -68,7 +68,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'products.context_processors.user_context',
+                'products.context_processors.user_context'
+                'products.context_processors.cart_count',
 
             ],
         },
