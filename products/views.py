@@ -423,7 +423,9 @@ def migrate_guest_cart_to_user(request, user):
 def get_cart_count(request):
     if request.user.is_authenticated:
         cart, _ = Cart.objects.get_or_create(user=request.user)
-        count = cart.items.count()
+        count = cart.items.count() 
     else:
-        count = 0
+        guest_cart = request.session.get('guest_cart', {})
+        count = len(guest_cart)  
+
     return JsonResponse({'cart_count': count})
