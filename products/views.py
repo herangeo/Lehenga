@@ -256,21 +256,33 @@ def product_detail(request, product_id):
 @require_POST
 def add_to_cart(request, product_id):
     product = get_object_or_404(Product, id=product_id)
+    # Print the POST data for debugging
+    print("POST data:", request.POST)
     
+    # Get quantity and ensure it's an integer
+    try:
+        quantity = int(request.POST.get('quantity', 1))
+        if quantity < 1:
+            quantity = 1
+    except ValueError:
+        quantity = 1
+
     if request.user.is_authenticated:
         cart, created = Cart.objects.get_or_create(user=request.user)
         cart_item, created = CartItem.objects.get_or_create(
             cart=cart,
             product=product,
-            defaults={'quantity': 1}
+            defaults={'quantity': quantity}
         )
         if not created:
-            cart_item.quantity += 1
+            # Update the quantity instead of adding to it
+            cart_item.quantity = quantity  # Changed from += to =
             cart_item.save()
     else:
         guest_cart = request.session.get('guest_cart', {})
         product_id_str = str(product_id)
-        guest_cart[product_id_str] = guest_cart.get(product_id_str, 0) + 1
+        # Update the quantity instead of incrementing
+        guest_cart[product_id_str] = quantity  # Changed from += 1
         request.session['guest_cart'] = guest_cart
         request.session.modified = True
 
@@ -280,7 +292,6 @@ def add_to_cart(request, product_id):
             'message': 'Product added to cart'
         })
     return redirect('cart_view')
-
 
 
 
@@ -313,22 +324,7 @@ def cart_view(request):
         'is_authenticated': request.user.is_authenticated
     })
 
-def add_to_cart(request, product_id):
-    product = get_object_or_404(Product, id=product_id)
-    
-    if request.user.is_authenticated:
-        cart, _ = Cart.objects.get_or_create(user=request.user)
-        cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product)
-        cart_item.quantity += 1
-        cart_item.save()
-    else:
-        guest_cart = get_or_create_guest_cart(request)
-        product_id_str = str(product_id)
-        guest_cart[product_id_str] = guest_cart.get(product_id_str, 0) + 1
-        request.session['guest_cart'] = guest_cart
-        request.session.modified = True
-    
-    return redirect('cart_view')
+
 
 def remove_from_cart(request, product_id):
     if request.user.is_authenticated:
@@ -424,3 +420,10 @@ def migrate_guest_cart_to_user(request, user):
         del request.session['guest_cart']
         request.session.modified = True
 
+def get_cart_count(request):
+    if request.user.is_authenticated:
+        cart, _ = Cart.objects.get_or_create(user=request.user)
+        count = cart.items.count()
+    else:
+        count = 0
+    return JsonResponse({'cart_count': count})
