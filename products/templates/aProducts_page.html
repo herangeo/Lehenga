@@ -261,7 +261,7 @@
         flex-direction: row;
         align-items: center;
         width: 80%;
-        margin-left: 65px; /* Adjust width to give space for the filter button */
+        margin-left: 65px;
     }
 
     .search-bar input {
@@ -492,7 +492,7 @@ small{
   padding-bottom: 0%;
   height: 5px;
     font-family: 'Poppins', sans-serif;
-    font-weight: 600;
+    font-weight: 400;
     color: rgb(114, 52, 56);
     text-align:start;
 }
@@ -503,7 +503,7 @@ small{
     font-size: small;
     color: #6b7280;
     text-align: start;
-    margin-bottom: 10px;
+    margin-bottom: 0px;
 }
 
 
@@ -619,7 +619,6 @@ small{
     float: right;
     line-height: 80px;
     margin-right: 30px;
-    margin-top: 25px;
     cursor: pointer;
     display: none;
   }
@@ -649,7 +648,7 @@ small{
     label.logo {
       font-size: 22px;
     }
-    ul {
+    nav ul {
       position: fixed;
       width: 100%;
       height: calc(100vh - 80px); /* Adjust for nav height */
@@ -678,6 +677,32 @@ small{
     }
   }
 
+  #cart-count {
+    position: absolute;
+    top: 20px;
+    background-color: brown;
+}
+
+
+@media (max-width: 890px) {
+    #cart-count {
+    position: absolute;
+    top: 200px;
+    background-color: brown;
+}
+}
+
+#sortProducts {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    margin: 10px 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
 
 
 </style>
@@ -693,16 +718,17 @@ small{
     <!-- Navigation links -->
     <ul>
         <li><a class="active" href="{% url 'main_page' %}">Home</a></li>
-        <li><a href="{% url 'aboutus_page' %}">About Us</a></li>
-        <li><a href="{% url 'cart_view' %}"><i class="fas fa-shopping-cart"></i></a></li>
-        <li><a href="{% url 'wishlist' %}"><i class="fas fa-heart"></i></a></li>
+        <li><a href="{% url 'order_confirmation' %}" >Orders</a></li>
+        <li><a href="{% url 'cart_view' %}"><i class="fas fa-shopping-cart"></i>
+          <span id="cart-count" class="badge badge-pill badge-primary">{{ cart_count }}</span>
+      </a></li>
+      <li><a href="{% url 'wishlist' %}"><i class="fas fa-heart"></i></a></li>
         <li class="user-nav-item">
           <a href="#" class="relative">
             <i class="fas fa-user"></i>
             <div class="profile-popup">
-              <h3>Welcome</h3>
               {% if not username %}
-                <p>To access account and manage orders</p>
+                <p>To access account </p>
                 <form method="GET" action="{% url 'login_page' %}">
                   <button type="submit" class="login-btn">LOGIN / SIGNUP</button>
                 </form>  
@@ -714,7 +740,7 @@ small{
                     <button type="submit" class="login-btn">Logout</button>
                   </form>
                 {% endif %}
-              {% endif %}                           
+              {% endif %} 
             </div>
           </a>
         </li>   </ul>
@@ -738,6 +764,15 @@ small{
                 <input type="checkbox" id="1000_and_above" onclick="filterProducts()"> ₹1000 and above
             </label>
         </div>
+        <div class="filter-group">
+          <select id="sortProducts" onchange="sortProducts()">
+              <option value="popularity">Popularity</option>
+              <option value="newness">Newness</option>
+              <option value="oldest">Oldest First</option>
+              <option value="priceLowToHigh">Price: Low to High</option>
+              <option value="priceHighToLow">Price: High to Low</option>
+          </select>
+      </div>      
         <button type="button" class="apply-filter-btn" onclick="filterProducts()">Apply Filter</button>
     </div>   
     <br>
@@ -813,17 +848,20 @@ small{
             window.location.href = url;
         });
     });
+  
+  
     function filterProducts() {
     const lessThan1000Checked = document.getElementById('less_than_1000').checked;
     const moreThan1000Checked = document.getElementById('1000_and_above').checked;
 
     const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+    const sortOption = document.getElementById('sortProducts').value; // Get selected sorting option
 
-    const products = document.querySelectorAll('.Lehenga-item');
+    const products = Array.from(document.querySelectorAll('.Lehenga-item'));
+    const gallery = document.querySelector('.Lehenga-gallery');
 
-    products.forEach(product => {
+    let filteredProducts = products.filter(product => {
         const productPrice = parseFloat(product.getAttribute('data-price'));
-
         const productName = product.querySelector('.product-name').textContent.toLowerCase();
 
         let showProduct = true;
@@ -840,13 +878,53 @@ small{
             showProduct = false;
         }
 
-        if (showProduct) {
-            product.style.display = "block";
-        } else {
-            product.style.display = "none";
-        }
+        return showProduct;
+    });
+
+    // Sorting logic
+    if (sortOption) {
+        filteredProducts.sort((a, b) => {
+            switch (sortOption) {
+                case 'popularity':
+                    // Add logic for popularity if available (e.g., dataset value)
+                    return 0; // Default sorting for now
+                case 'newness':
+                    return new Date(b.getAttribute('data-date')) - new Date(a.getAttribute('data-date'));
+                case 'oldest':
+                    return new Date(a.getAttribute('data-date')) - new Date(b.getAttribute('data-date'));
+                case 'priceLowToHigh':
+                    return parseFloat(a.getAttribute('data-price')) - parseFloat(b.getAttribute('data-price'));
+                case 'priceHighToLow':
+                    return parseFloat(b.getAttribute('data-price')) - parseFloat(a.getAttribute('data-price'));
+                default:
+                    return 0;
+            }
+        });
+    }
+
+    // Update the display of products
+    gallery.innerHTML = ""; // Clear the gallery
+    filteredProducts.forEach(product => {
+        gallery.appendChild(product); // Append filtered and sorted products
     });
 }
+
+
+function updateCartCount() {
+    fetch("{% url 'get_cart_count' %}")
+        .then(response => response.json())
+        .then(data => {
+            const cartCountElement = document.getElementById('cart-count');
+            if (cartCountElement) {
+                cartCountElement.textContent = data.cart_count;
+            }
+        })
+        .catch(error => console.error("Error fetching cart count:", error));
+}
+
+// Call the function initially and at intervals
+updateCartCount();
+setInterval(updateCartCount, 10000);
 
     </script>
 </body>
