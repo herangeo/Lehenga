@@ -295,6 +295,20 @@ small{
 .rights{
     font-size: calc(10px + (12 - 10) * ((100vw - 360px) / (1600 - 360))) !important; 
 }
+#cart-count {
+    position: absolute;
+    top: 20px;
+    background-color: brown;
+}
+
+
+@media (max-width: 890px) {
+    #cart-count {
+    position: absolute;
+    top: 200px;
+    background-color: brown;
+}
+}
 
   
   </style>
@@ -309,10 +323,12 @@ small{
         <label class="logo">LEHENGA</label>
         <!-- Navigation links -->
         <ul>
-          <li><a class="active" href="#">Home</a></li>
-          <li><a href="#">About Us</a></li>
-          <li><a href="#"><i class="fas fa-shopping-cart"></i></a></li>
-          <li><a href="#"><i class="fas fa-heart"></i></a></li>
+          <li><a class="active" href="{% url 'main_page' %}">Home</a></li>
+          <li><a href="{% url 'aboutus_page' %}">About Us</a></li>
+          <li><a href="{% url 'cart_view' %}"><i class="fas fa-shopping-cart"></i>
+            <span id="cart-count" class="badge badge-pill badge-primary">{{ cart_count }}</span>
+        </a></li> 
+             <li><a href="{% url 'wishlist' %}"><i class="fas fa-heart"></i></a></li>
           <li class="user-nav-item">
             <a href="#" class="relative">
               <i class="fas fa-user"></i>
@@ -386,8 +402,23 @@ small{
                 </div>
             </footer>
         </div>
-    
+        <script>
+          
+        function updateCartCount() {
+    fetch("{% url 'get_cart_count' %}")
+        .then(response => response.json())
+        .then(data => {
+            const cartCountElement = document.getElementById('cart-count');
+            if (cartCountElement) {
+                cartCountElement.textContent = data.cart_count;
+            }
+        })
+        .catch(error => console.error("Error fetching cart count:", error));
+}
 
-
+// Call the function initially and at intervals
+updateCartCount();
+setInterval(updateCartCount, 10000);
+        </script>
 </body>
 </html>
