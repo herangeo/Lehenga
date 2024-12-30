@@ -560,6 +560,66 @@ small{
     font-size: calc(10px + (12 - 10) * ((100vw - 360px) / (1600 - 360))) !important; 
 }
 
+#cart-count {
+    position: absolute;
+    top: 20px;
+    background-color: brown;
+}
+
+
+@media (max-width: 890px) {
+    #cart-count {
+    position: absolute;
+    top: 200px;
+    background-color: brown;
+}
+}
+
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: rgb(191, 92, 92);
+    color: white;
+    padding: 15px;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    z-index: 1000;
+    display: none;
+    animation: slideIn 0.5s forwards;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.product-image {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: auto;
+    cursor: zoom-in; /* Changes the cursor to indicate zoom */
+}
+
+.product-image img {
+    display: block;
+    width: 100%; /* Ensure the image covers its container */
+    transition: transform 0.3s ease; /* Smooth zoom transition */
+}
+
+.product-image:hover img {
+    transform: scale(2); /* Zoom level */
+    transform-origin: center; /* Default zoom center */
+}
+
+
 
 
 </style>
@@ -576,8 +636,10 @@ small{
         <ul>
           <li><a class="active" href="{% url 'main_page' %}">Home</a></li>
           <li><a href="{% url 'aboutus_page' %}">About Us</a></li>
-          <li><a href="{% url 'cart_view' %}"><i class="fas fa-shopping-cart"></i></a></li>
-          <li><a href="{% url 'wishlist' %}"><i class="fas fa-heart"></i></a></li>
+          <li><a href="{% url 'cart_view' %}"><i class="fas fa-shopping-cart"></i>
+            <span id="cart-count" class="badge badge-pill badge-primary">{{ cart_count }}</span>
+        </a></li>
+         <li><a href="{% url 'wishlist' %}"><i class="fas fa-heart"></i></a></li>
           <li class="user-nav-item">
             <a href="#" class="relative">
               <i class="fas fa-user"></i>
@@ -602,6 +664,9 @@ small{
           </li>
         </ul>
     </nav>
+
+    <div id="notification" class="notification"></div>
+
 
     <div class="container my-5">
         <div class="row details-snippet1">
@@ -652,7 +717,7 @@ small{
                 <hr>
                 <div class="row">
                     <div class="col-md-3">
-                        <input type="number" class="form-control" value="1" id="quantity">
+                        <input type="number" class="form-control" value="1" id="quantity" min="1">
                     </div>
                     <div class="col-md-9" id="button-container">
                         {% if is_in_cart %}
@@ -660,7 +725,7 @@ small{
                         {% else %}
                             <form id="add-to-cart-form" method="POST" action="{% url 'add_to_cart' product.id %}">
                                 {% csrf_token %}
-                                <input type="hidden" name="quantity" value="1">
+                                <input type="hidden" name="quantity" value="1" id="hidden-quantity">
                                 <button class="btn addBtn btn-block add-to-cart-btn" type="submit">Add to basket</button>
                             </form>
                         {% endif %}
@@ -807,6 +872,53 @@ small{
     </div>
     <script>
 
+document.querySelector('.product-image').addEventListener('mousemove', function(e) {
+    const image = this.querySelector('img');
+    const rect = this.getBoundingClientRect();
+
+    // Calculate the mouse position relative to the image
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+    // Set the transform-origin to the cursor's position
+    image.style.transformOrigin = `${x}% ${y}%`;
+});
+
+document.querySelector('.product-image').addEventListener('mouseleave', function() {
+    const image = this.querySelector('img');
+    image.style.transformOrigin = 'center'; // Reset to center when cursor leaves
+});
+
+
+
+document.getElementById('add-to-cart-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    fetch(this.action, {
+        method: 'POST',
+        body: new FormData(this),
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+        },
+        credentials: 'same-origin'
+    })
+    .then(response => response.json())
+    .then(data => {
+        const notification = document.getElementById('notification');
+        notification.textContent = 'Product added to cart';
+        notification.style.display = 'block';
+        
+        // Hide notification after 3 seconds
+        setTimeout(() => {
+            notification.style.display = 'none';
+        }, 3000);
+    });
+});
+
+document.getElementById('quantity').addEventListener('change', function() {
+    document.getElementById('hidden-quantity').value = this.value;
+});
+
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('add-to-cart-form');
     const buttonContainer = document.getElementById('button-container');
@@ -841,6 +953,38 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+    fetch(form.action, {
+        method: "POST",
+        body: formData,
+        headers: {
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+        },
+    })
+    .then(response => {
+        if (response.ok) {
+            updateCartCount(); // Update the count immediately after adding
+        }
+        return response.json();
+    })
+    .catch(error => console.error("Error adding to cart:", error));
+
+    function updateCartCount() {
+        fetch("{% url 'get_cart_count' %}")
+            .then(response => response.json())
+            .then(data => {
+                const cartCountElement = document.getElementById('cart-count');
+                if (cartCountElement) {
+                    cartCountElement.textContent = data.cart_count;
+                }
+            })
+            .catch(error => console.error("Error fetching cart count:", error));
+    }
+
+    // Call the function initially and at intervals
+    updateCartCount();
+    setInterval(updateCartCount, 10000);
+
 
      document.addEventListener("DOMContentLoaded", function() {
     // Select all preview images
