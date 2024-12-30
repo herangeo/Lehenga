@@ -887,6 +887,29 @@ input[type="text"]::placeholder {
     transition: padding 0.3s ease, font-size 0.3s ease;
 }
 
+#cart-count {
+    position: absolute;
+    top: -13px;
+    background-color: brown;
+}
+
+
+@media (max-width: 890px) {
+    #cart-count {
+    position: absolute;
+    top: -13px;
+    background-color: brown;
+}
+}
+
+@media (max-width: 480px) {
+    #cart-count {
+    position: absolute;
+    top: -5px;
+    background-color: brown;
+}
+}
+
 
     </style>
 </head>
@@ -895,8 +918,8 @@ input[type="text"]::placeholder {
         <div class="header-content">
             <div class="search-section">
                 <div class="header-icons">
-                    <a href="{% url 'cart_view' %}" class="cart-icon">
-                        <i class="fas fa-shopping-cart"></i>
+                    <a href="{% url 'cart_view' %}"><i class="fas fa-shopping-cart"></i>
+                        <span id="cart-count" class="badge badge-pill badge-primary">{{ cart_count }}</span>
                     </a>
                     <a href="{% url 'wishlist' %}" class="heart-icon">
                         <i class="fas fa-heart"></i>
@@ -949,8 +972,8 @@ input[type="text"]::placeholder {
         <div class="nav-drawer-content">
             <button class="nav-drawer-close">&times;</button>
             <div class="header-icons">
-                <a href="{% url 'cart_view' %}" class="cart-icon">
-                    <i class="fas fa-shopping-cart"></i>
+                <a href="{% url 'cart_view' %}"><i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count" class="badge badge-pill badge-primary">{{ cart_count }}</span>
                 </a>
                 <a href="{% url 'wishlist' %}" class="heart-icon">
                     <i class="fas fa-heart"></i>
@@ -1144,6 +1167,23 @@ document.addEventListener('DOMContentLoaded', function() {
         this.parentElement.classList.remove('focused');
     });
 });
+
+function updateCartCount() {
+    fetch("{% url 'get_cart_count' %}")
+        .then(response => response.json())
+        .then(data => {
+            const cartCountElement = document.getElementById('cart-count');
+            if (cartCountElement) {
+                cartCountElement.textContent = data.cart_count;
+            }
+        })
+        .catch(error => console.error("Error fetching cart count:", error));
+}
+
+// Call the function initially and at intervals
+updateCartCount();
+setInterval(updateCartCount, 10000);
+
     </script>
 </body>
 </html>
