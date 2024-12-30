@@ -586,7 +586,7 @@ small{
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     z-index: 1000;
     display: none;
-    animation: slideIn 0.5s forwards;
+    animation: slideIn 1s forwards;
 }
 
 @keyframes slideIn {
@@ -872,6 +872,24 @@ small{
     </div>
     <script>
 
+
+    function updateCartCount() {
+        fetch("{% url 'get_cart_count' %}")
+            .then(response => response.json())
+            .then(data => {
+                const cartCountElement = document.getElementById('cart-count');
+                if (cartCountElement) {
+                    cartCountElement.textContent = data.cart_count;
+                }
+            })
+            .catch(error => console.error("Error fetching cart count:", error));
+    }
+
+    // Call the function initially and at intervals
+    updateCartCount();
+    setInterval(updateCartCount, 10000);
+
+
 document.querySelector('.product-image').addEventListener('mousemove', function(e) {
     const image = this.querySelector('img');
     const rect = this.getBoundingClientRect();
@@ -968,22 +986,6 @@ document.addEventListener('DOMContentLoaded', function() {
         return response.json();
     })
     .catch(error => console.error("Error adding to cart:", error));
-
-    function updateCartCount() {
-        fetch("{% url 'get_cart_count' %}")
-            .then(response => response.json())
-            .then(data => {
-                const cartCountElement = document.getElementById('cart-count');
-                if (cartCountElement) {
-                    cartCountElement.textContent = data.cart_count;
-                }
-            })
-            .catch(error => console.error("Error fetching cart count:", error));
-    }
-
-    // Call the function initially and at intervals
-    updateCartCount();
-    setInterval(updateCartCount, 10000);
 
 
      document.addEventListener("DOMContentLoaded", function() {
