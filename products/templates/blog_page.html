@@ -628,16 +628,16 @@ small{
     <h1 class="main-heading">BLOG</h1>
     <div class="band">
         <div class="item-1">
-            <a href="#" class="card" style="text-decoration: none;">
-                <div class="thumb" style="background-image: url('{% static 'images/edited2.JPEG' %}' )"></div>
-                <article>
-                    <h2>KASHISH- THE SAREE EDIT BY SEEMA GUJRAL</h2>
-                    <p>SEPTEMBER 2023: 'Kashish' means attraction or fascination. It epitomizes the brilliance of light from above, a light that is pure and serene. This collection seamlessly blends traditional craftsmanship with contemporary design, offering a mesmerizing tale of sartorial evolution.</p>
-                </article>
-            </a>
+            <a href="{% url 'single_blog' product_id=3 %}" class="card" style="text-decoration: none;">
+              <div class="thumb" style="background-image: url('{% static 'images/edited2.JPEG' %}')"></div>
+              <article>
+                  <h2>KASHISH- THE SAREE EDIT BY SEEMA GUJRAL</h2>
+                  <p>SEPTEMBER 2023: 'Kashish' means attraction or fascination. It epitomizes the brilliance of light from above, a light that is pure and serene. This collection seamlessly blends traditional craftsmanship with contemporary design, offering a mesmerizing tale of sartorial evolution.</p>
+              </article>
+            </a>        
         </div>
         <div class="item-2">
-          <a href="#" class="card" style="text-decoration: none;">
+          <a href="{% url 'single_blog' product_id=1 %}" class="card" style="text-decoration: none;">
             <div class="thumb" style="background-image: url('{% static 'images/edited1.JPEG' %}' )"></div>
                 <article>
                     <h2>FIORI- THE SHARARA EDIT BY SEEMA GUJRAL</h2>
@@ -646,7 +646,7 @@ small{
             </a>
         </div>
         <div class="item-3">
-          <a href="#" class="card" style="text-decoration: none;">
+          <a href="{% url 'single_blog' product_id=9 %}"   class="card" style="text-decoration: none;">
             <div class="thumb" style="background-image: url('{% static 'images/edited3.JPEG' %}' )"></div>
                 <article>
                     <h2>INARA AUTUMN WINTER 2023</h2>
@@ -655,7 +655,7 @@ small{
             </a>
         </div>
         <div class="item-4">
-          <a href="#" class="card" style="text-decoration: none;">
+          <a href="{% url 'single_blog' product_id=10 %}" class="card" style="text-decoration: none;">
             <div class="thumb" style="background-image: url('{% static 'images/edited4.JPG' %}' )"></div>
             <article>
               <h1>KASHISH- THE SAREE EDIT BY SEEMA GUJRAL</h1>
@@ -667,7 +667,7 @@ small{
           </a>
     </div>
     <div class="item-5">
-      <a href="#" class="card" style="text-decoration: none;">
+      <a href="{% url 'single_blog' product_id=6 %}" class="card" style="text-decoration: none;">
         <div class="thumb" style="background-image: url('{% static 'images/edited5.JPG' %}' )"></div>
             <article>
               <h1>FIORI- THE SAHARARA EDIT BY
@@ -680,7 +680,7 @@ small{
           </a>
     </div>
     <div class="item-6">
-      <a href="#" class="card" style="text-decoration: none;">
+      <a href="{% url 'single_blog' product_id=12 %}"   class="card" style="text-decoration: none;">
         <div class="thumb" style="background-image: url('{% static 'images/edited6.JPG' %}' )"></div>
         <article>
           <h1>INARA AUTUMN WINTER 2023</h1>
@@ -692,7 +692,7 @@ small{
       </a>
     </div>
     <div class="item-4">
-      <a href="#" class="card" style="text-decoration: none;">
+      <a href="{% url 'single_blog' product_id=7 %}" class="card" style="text-decoration: none;">
         <div class="thumb" style="background-image: url('{% static 'images/edited7.JPG' %}' )"></div>
         <article>
           <h1>KASHISH- THE SAREE EDIT BY SEEMA GUJRAL</h1>
@@ -704,7 +704,7 @@ small{
       </a>
 </div>
 <div class="item-2">
-  <a href="#" class="card" style="text-decoration: none;">
+  <a href="{% url 'single_blog' product_id=13 %}" class="card" style="text-decoration: none;">
     <div class="thumb" style="background-image: url('{% static 'images/edited8.JPG' %}' )"></div>
     <article>
           <h2>FIORI- THE SHARARA EDIT BY SEEMA GUJRAL</h2>
