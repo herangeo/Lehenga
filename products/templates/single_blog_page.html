@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.name }}</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Modern variables */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-color: rgb(114, 52, 56);
+            --text-color: #333;
+            --light-gray: #f5f6fa;
+            --spacing: 2rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-gray);
+        }
+
+        .product-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .product-header {
+            text-align: center;
+            margin-bottom: var(--spacing);
+            padding: 2rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+
+        .product-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .main-image {
+            position: relative;
+            margin-bottom: var(--spacing);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .main-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .main-image:hover img {
+            transform: scale(1.02);
+        }
+
+        .price-tag {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--accent-color);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-size: 1.25rem;
+            font-weight: bold;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .additional-images {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: var(--spacing);
+        }
+
+        .additional-images img {
+            width: 100%;
+            height: 200px;
+            object-fit:contain;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .additional-images img:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-details {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-top: var(--spacing);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+
+        .share-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .share-button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: transform 0.2s ease;
+        }
+
+        .share-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .facebook { background: #3b5998; }
+        .twitter { background: #1da1f2; }
+        .pinterest { background: #bd081c; }
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+  text-decoration: none;
+  list-style: none;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  margin: 0; /* Ensure no default margin */
+}
+
+nav {
+  background: white;
+  height: 80px;
+  width: 100%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  position: fixed; /* Fix the nav to the top */
+  top: 0; /* Align to the very top */
+  left: 0; /* Ensure it spans the full width */
+  z-index: 1000; /* Ensure it's above other content */
+}
+
+label.logo {
+  color: rgb(114, 52, 56);
+  font-size: 25px;
+  line-height: 80px;
+  padding: 0 100px;
+  font-weight: bold;
+  font-family: 'Playfair Display', serif;
+}
+
+nav ul {
+  float: right;
+  margin-right: 20px;
+}
+
+nav ul li {
+  display: inline-block;
+  line-height: 80px;
+  margin: 0 5px;
+}
+
+nav ul li a {
+  color: rgb(114, 52, 56);
+  font-size: 17px;
+  padding: 7px 13px;
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+
+a.active,
+a:hover {
+  color: rgb(114, 52, 56);
+  transition: .5s;
+}
+
+.checkbtn {
+  font-size: 22px;
+  color: rgb(114, 52, 56);
+  float: right;
+  line-height: 80px;
+  margin-right: 30px;
+  cursor: pointer;
+  display: none;
+}
+
+#check {
+  display: none;
+}
+
+/* Add padding to the top of the main content to account for the fixed nav */
+.main-heading {
+  padding-top: 100px; /* Adjust this value based on your nav height */
+}
+
+@media (max-width: 1050px) {
+  label.logo {
+    padding-left: 30px;
+  }
+  nav ul li a {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 890px) {
+  .checkbtn {
+    display: block;
+  }
+  label.logo {
+    font-size: 22px;
+  }
+  nav ul {
+    position: fixed;
+    width: 100%;
+    height: calc(100vh - 80px); /* Adjust for nav height */
+    background: rgb(240, 237, 237);
+    top: 80px;
+    left: -100%;
+    text-align: center;
+    transition: all .5s;
+    z-index: 999;
+  }
+  nav ul li {
+    display: block;
+    margin: 50px 0;
+    line-height: 30px;
+  }
+  nav ul li a {
+    font-size: 20px;
+  }
+  a:hover,
+  a.active {
+    background: none;
+    color: rgb(114, 52, 56);
+  }
+  #check:checked ~ ul {
+    left: 0;
+  }
+}
+
+  .profile-popup {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 250px;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            z-index: 1000;
+            padding: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .user-nav-item:hover .profile-popup {
+            display: block;
+        }
+        .user-nav-item {
+    position: relative;
+}
+
+.profile-popup {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    width: 280px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    z-index: 1000;
+    transform: translateY(-10px);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease-in-out;
+}
+
+.user-nav-item:hover .profile-popup {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+}
+
+.profile-popup h3 {
+  padding-bottom: 0%;
+  height: 5px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: rgb(114, 52, 56);
+    text-align:start;
+}
+
+.profile-popup p {
+  height: 50px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: small;
+    color: #6b7280;
+    text-align: start;
+    margin-bottom: 10px;
+}
+
+
+.login-btn {
+    width: 100%;
+    height: 50px; /* Explicitly set the button height */
+    padding: 0; /* Optional: Set padding to 0 to avoid adding to the height */
+    background-color: rgb(114, 52, 56);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 30px; /* Center-align the text vertically within the button */
+}
+
+
+.login-btn:hover {
+    background-color: rgb(96, 44, 48);
+}
+
+.dropdown-menu {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+    padding: 10px 0;
+    display: none;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.3s ease-in-out;
+}
+
+.user-nav-item:hover .dropdown-menu {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.dropdown-menu li {
+    padding: 8px 20px;
+}
+
+.dropdown-menu li a {
+    font-family: 'Montserrat', sans-serif;
+    color: rgb(114, 52, 56);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    display: block;
+}
+
+.dropdown-menu li a:hover {
+    color: rgb(96, 44, 48);
+}
+
+  * {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: "Montserrat", sans-serif;
+    margin: 0; /* Ensure no default margin */
+  }
+  
+  nav {
+    background: white;
+    height: 80px;
+    width: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+    position:relative;
+    top: 0; /* Align to the very top */
+    left: 0; /* Ensure it spans the full width */
+  }
+  
+  label.logo {
+    color: rgb(114, 52, 56);
+    font-size: 25px;
+    line-height: 80px;
+    padding: 0 100px;
+    font-weight: bold;
+    font-family: 'Playfair Display', serif;
+  }
+  
+  nav ul {
+    float: right;
+    margin-right: 20px;
+  }
+  
+  nav ul li {
+    display: inline-block;
+    line-height: 80px;
+    margin: 0 5px;
+  }
+  
+  nav ul li a {
+    color: rgb(114, 52, 56);
+    font-size: 17px;
+    padding: 7px 13px;
+    border-radius: 3px;
+    text-transform: uppercase;
+  }
+  
+  a.active,
+  a:hover {
+    color: rgb(114, 52, 56);
+    transition: .5s;
+  }
+  
+  .checkbtn {
+    font-size: 22px;
+    color: rgb(114, 52, 56);
+    float: right;
+    line-height: 80px;
+    margin-right: 30px;
+    margin-top: 0px;
+    cursor: pointer;
+    display: none;
+  }
+  
+  #check {
+    display: none;
+  }
+  
+  /* Add padding to the top of the main content to account for the fixed nav */
+  .main-heading {
+    padding-top: 50px; /* Adjust this value based on your nav height */
+  }
+  
+  @media (max-width: 1050px) {
+    label.logo {
+      padding-left: 30px;
+    }
+    nav ul li a {
+      font-size: 16px;
+    }
+  }
+  
+  @media (max-width: 890px) {
+    .checkbtn {
+      display: block;
+    }
+    label.logo {
+      font-size: 22px;
+    }
+    nav ul {
+      position: fixed;
+      width: 100%;
+      height: calc(100vh - 80px); /* Adjust for nav height */
+      background: rgb(240, 237, 237);
+      top: 80px;
+      left: -100%;
+      text-align: center;
+      transition: all .5s;
+      z-index: 999;
+    }
+    nav ul li {
+      display: block;
+      margin: 50px 0;
+      line-height: 30px;
+    }
+    nav ul li a {
+      font-size: 20px;
+    }
+    a:hover,
+    a.active {
+      background: none;
+      color: rgb(114, 52, 56);
+    }
+    #check:checked ~ ul {
+      left: 0;
+    }
+  }
+  .container-fluid{
+    overflow:hidden; 
+    margin-top: 250px ;
+    background:rgb(66, 31, 33) ;
+    color: #627482  !important;
+    margin-bottom: 0 ;
+    padding-bottom:0  ;
+}
+
+small{
+    font-size: calc(12px + (15 - 12) * ((100vw - 360px) / (1600 - 360))) !important; 
+}
+
+.bold-text{
+    color: #989c9e !important;
+}
+
+
+.mt-55{
+    margin-top: calc(50px + (60 - 50) * ((100vw - 360px) / (1600 - 360))) !important; 
+}
+
+
+ 
+.social{
+    font-size: 21px !important; 
+}
+
+.rights{
+    font-size: calc(10px + (12 - 10) * ((100vw - 360px) / (1600 - 360))) !important; 
+}
+
+#cart-count {
+    position: absolute;
+    top: -13px;
+    background-color: white;
+}
+
+
+@media (max-width: 890px) {
+    #cart-count {
+    position: absolute;
+    top: 195px;
+    background-color: rgb(240, 237, 237);
+}
+}
+
+
+</style>
+<body>
+  <nav>
+    <input type="checkbox" id="check">
+    <!-- Menu icon -->
+    <label for="check" class="checkbtn">
+      <i class="fas fa-bars"></i>
+    </label>
+    <!-- Site logo -->
+    <label class="logo">LEHENGA</label>
+    <!-- Navigation links -->
+    <ul>
+      <li><a class="active" href="{% url 'main_page' %}">Home</a></li>
+      <li><a href="{% url 'aboutus_page' %}">About Us</a></li>
+      <li><a href="{% url 'cart_view' %}"><i class="fas fa-shopping-cart"></i>
+        <span id="cart-count" class="badge badge-pill badge-primary">{{ cart_count }}</span>
+    </a></li>
+      <li><a href="{% url 'wishlist' %}"><i class="fas fa-heart"></i></a></li>
+      <li class="user-nav-item">
+        <a href="#" class="relative">
+          <i class="fas fa-user"></i>
+          <div class="profile-popup">
+            {% if not username %}
+              <p>To access account</p>
+              <form method="GET" action="{% url 'login_page' %}">
+                <button type="submit" class="login-btn">LOGIN / SIGNUP</button>
+              </form>  
+            {% else %}
+              <p style="color: red;font-size: large;">Welcome !!</p>
+              <p>{{ username }}</p>  
+              {% if user.is_authenticated %}
+                <form method="POST" action="{% url 'logout' %}">
+                  {% csrf_token %}
+                  <button type="submit" class="login-btn">Logout</button>
+                </form>
+              {% endif %}
+            {% endif %}                           
+          </div>
+        </a>
+      </li>   
+    </ul>
+  </nav>
+    <div class="product-container">
+        <div class="product-header">
+            <h1>{{ product.name }}</h1>
+            <div class="share-buttons">
+                <button class="share-button facebook">
+                    <i class="fab fa-facebook-f"></i> Share
+                </button>
+                <button class="share-button twitter">
+                    <i class="fab fa-twitter"></i> Tweet
+                </button>
+                <button class="share-button pinterest">
+                    <i class="fab fa-pinterest"></i> Pin
+                </button>
+            </div>
+        </div>
+
+        <div class="main-image">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            <div class="price-tag">₹{{ product.price }}</div>
+        </div>
+
+        <div class="product-details">
+            <div class="additional-images">
+                {% if product.image_2 %}
+                    <img src="{{ product.image_2.url }}" alt="{{ product.name }} - Image 2">
+                {% endif %}
+                {% if product.image_3 %}
+                    <img src="{{ product.image_3.url }}" alt="{{ product.name }} - Image 3">
+                {% endif %}
+                {% if product.image_4 %}
+                    <img src="{{ product.image_4.url }}" alt="{{ product.name }} - Image 4">
+                {% endif %}
+                {% if product.image_5 %}
+                    <img src="{{ product.image_5.url }}" alt="{{ product.name }} - Image 5">
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+         function updateCartCount() {
+    fetch("{% url 'get_cart_count' %}")
+        .then(response => response.json())
+        .then(data => {
+            const cartCountElement = document.getElementById('cart-count');
+            if (cartCountElement) {
+                cartCountElement.textContent = data.cart_count;
+            }
+        })
+        .catch(error => console.error("Error fetching cart count:", error));
+}
+
+// Call the function initially and at intervals
+updateCartCount();
+setInterval(updateCartCount, 10000);
+    </script>
+</body>
+</html>
