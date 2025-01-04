@@ -253,6 +253,11 @@ def product_detail(request, product_id):
     return render(request, 'product_detail.html', context)
 
 
+def single_blog(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    return render(request, 'single_blog_page.html', {'product': product})
+
+
 @require_POST
 def add_to_cart(request, product_id):
     product = get_object_or_404(Product, id=product_id)
