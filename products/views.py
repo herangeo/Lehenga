@@ -294,7 +294,7 @@ def add_to_cart(request, product_id):
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
         return JsonResponse({
             'status': 'success',
-            'message': 'Product added to cart'
+            'message': 'Product added to cart !'
         })
     return redirect('cart_view')
 
