@@ -13,6 +13,11 @@ class Product(models.Model):
     image_3 = models.ImageField(upload_to='product_images/', blank=True, null=True)
     image_4 = models.ImageField(upload_to='product_images/', blank=True, null=True)
     image_5 = models.ImageField(upload_to='product_images/', blank=True, null=True)
+    description_1 = models.TextField(blank=True, null=True) 
+    description_2 = models.TextField(blank=True, null=True)  
+
+
+
 
 
     def __str__(self):
